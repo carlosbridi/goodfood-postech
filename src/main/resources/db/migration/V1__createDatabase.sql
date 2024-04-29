@@ -1,0 +1,1 @@
+CREATE table food (sample varchar);

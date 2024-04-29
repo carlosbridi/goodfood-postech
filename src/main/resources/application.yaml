@@ -1,0 +1,21 @@
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui-custom.html
+spring:
+  datasource:
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driverClassName: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/food}
+  application:
+    name: Good Food Service
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flwyay:
+    validateMigrationNaming: false
+    locations: classpath:db/migration
+server:
+  port: 8080
