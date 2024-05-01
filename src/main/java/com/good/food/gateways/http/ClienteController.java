@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping
+@RequestMapping("cliente")
 @RequiredArgsConstructor
 @Api(value = "/cliente", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClienteController {
@@ -31,6 +32,18 @@ public class ClienteController {
   
   @Autowired
   private final BuscarCliente buscarCliente;
+
+  @ApiResponses(
+      value = {
+          @ApiResponse(code = 200, message = "Ok"),
+      }
+  )
+  @ResponseStatus(code = HttpStatus.OK)
+  @GetMapping(path = "/hello-world")
+  public ResponseEntity<String> helloWorld(){
+    return 
+        ResponseEntity.ok().body("Hello World");
+  }
   
   @ApiResponses(
       value = {
@@ -57,6 +70,6 @@ public class ClienteController {
   public ResponseEntity<ClienteResponse> findByCpf(@RequestParam String cpf){
     return 
         ResponseEntity.ok().body(new ClienteResponse(buscarCliente.findByCpf(cpf)));
-  }  
+  }
 
 }
