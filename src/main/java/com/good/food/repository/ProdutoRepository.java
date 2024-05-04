@@ -1,4 +1,4 @@
-package com.good.food.gateways.repository;
+package com.good.food.repository;
 
 import java.util.List;
 import java.util.UUID;

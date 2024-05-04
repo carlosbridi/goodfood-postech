@@ -58,8 +58,9 @@ public class ProdutoController {
   }
 
 
-  @PutMapping(path = "/editar")  
-  public ResponseEntity<Void> editarProduto(@RequestBody ProdutoRequest produtoRequest){
+  @PutMapping(path = "/editar/{id}")  
+  public ResponseEntity<Void> editarProduto(@PathVariable String produtoId, @RequestBody ProdutoRequest produtoRequest){
+    
     return null;
   }
 

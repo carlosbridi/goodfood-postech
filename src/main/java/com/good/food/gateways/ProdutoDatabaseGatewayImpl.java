@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.domain.EProdutoCategoria;
 import com.good.food.domain.Produto;
-import com.good.food.gateways.repository.ProdutoRepository;
+import com.good.food.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -29,6 +29,11 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
   @Override
   public List<Produto> findByCategory(EProdutoCategoria category) {
     return produtoRepository.findByCategoria(category);
+  }
+
+  @Override
+  public Produto findById(UUID uuid) {
+    return produtoRepository.findById(uuid).orElseThrow();
   }
   
 }

@@ -1,4 +1,4 @@
-package com.good.food.gateways.repository;
+package com.good.food.repository;
 
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

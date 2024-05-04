@@ -7,6 +7,8 @@ import com.good.food.domain.Produto;
 
 public interface ProdutoDatabaseGateway {
 
+  Produto findById(UUID uuid);
+  
   Produto save(Produto produto);
   
   void delete(UUID uuid);
