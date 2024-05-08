@@ -21,10 +21,12 @@ import com.good.food.gateways.http.request.ProdutoRequest;
 import com.good.food.gateways.http.response.ProdutoResponse;
 import com.good.food.usecase.BuscarProdutoPorCategoria;
 import com.good.food.usecase.CadastrarProduto;
+import com.good.food.usecase.EditarProduto;
 import com.good.food.usecase.RemoverProduto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,11 +35,9 @@ import lombok.RequiredArgsConstructor;
 @Api(value = "/produto", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProdutoController {
   
-  @Autowired
-  private CadastrarProduto cadastrarProduto;
-  
-  @Autowired 
-  private RemoverProduto removerProduto;
+  private final CadastrarProduto cadastrarProduto;
+  private final RemoverProduto removerProduto;
+  private final EditarProduto editarProduto;
   
   @Autowired 
   private BuscarProdutoPorCategoria buscarProdutoPorCategoria;
@@ -50,7 +50,7 @@ public class ProdutoController {
   )
   @ResponseStatus(code = HttpStatus.CREATED)
   @PostMapping(path = "/cadastro")
-  public ResponseEntity<ProdutoResponse> cadastrarCliente(@RequestBody ProdutoRequest produtoRequest){
+  public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest produtoRequest){
     final ProdutoResponse produtoResponse = new ProdutoResponse(cadastrarProduto.execute(produtoRequest.toDomain()));
     return 
         ResponseEntity.created(URI.create("/"+produtoResponse.getUuid()))
@@ -58,10 +58,17 @@ public class ProdutoController {
   }
 
 
+  @ApiResponses(
+      value = {
+          @ApiResponse(code = 200, message = "Ok"),
+          @ApiResponse(code = 400, message = "Bad request"),
+          @ApiResponse(code = 404, message = "Not found")
+      }
+  )
   @PutMapping(path = "/editar/{id}")  
-  public ResponseEntity<Void> editarProduto(@PathVariable String produtoId, @RequestBody ProdutoRequest produtoRequest){
-    
-    return null;
+  public ResponseEntity<Void> editarProduto(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest){
+    editarProduto.execute(UUID.fromString(id), produtoRequest.toDomain());
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping(path = "buscarPorCategoria")

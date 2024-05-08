@@ -7,8 +7,12 @@ public enum EProdutoCategoria {
   SOBREMESA,
   ACOMPANHAMENTO;
   
-  public EProdutoCategoria getByString(final String categoria) {
-    return EProdutoCategoria.valueOf(categoria);
+  public static EProdutoCategoria getByString(final String categoria) {
+    try {
+      return EProdutoCategoria.valueOf(categoria);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Tipo incompatível, tipos disponíveis: LANCHE, BEBIDA, ACOMPANHAMENTO e SOBREMESA");
+    }
   }
   
 }

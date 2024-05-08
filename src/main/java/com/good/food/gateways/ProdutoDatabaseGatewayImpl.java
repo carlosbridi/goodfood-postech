@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.domain.EProdutoCategoria;
 import com.good.food.domain.Produto;
+import com.good.food.domain.exceptions.NotFoundException;
 import com.good.food.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +34,7 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
 
   @Override
   public Produto findById(UUID uuid) {
-    return produtoRepository.findById(uuid).orElseThrow();
+    return produtoRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Produto não encontrado"));
   }
   
 }

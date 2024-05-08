@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProdutoRequest implements Serializable {
+public class PedidoRequest implements Serializable {
 
   private static final long serialVersionUID = 8052492168210242514L;
   
