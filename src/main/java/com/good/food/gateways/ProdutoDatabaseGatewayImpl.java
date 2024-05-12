@@ -36,5 +36,5 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
   public Produto findById(UUID uuid) {
     return produtoRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Produto não encontrado"));
   }
-  
+
 }
