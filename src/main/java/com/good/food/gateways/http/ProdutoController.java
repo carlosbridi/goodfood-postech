@@ -49,14 +49,13 @@ public class ProdutoController {
       }
   )
   @ResponseStatus(code = HttpStatus.CREATED)
-  @PostMapping(path = "/cadastro")
+  @PostMapping
   public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest produtoRequest){
     final ProdutoResponse produtoResponse = new ProdutoResponse(cadastrarProduto.execute(produtoRequest.toDomain()));
     return 
         ResponseEntity.created(URI.create("/"+produtoResponse.getUuid()))
         .body(produtoResponse);
   }
-
 
   @ApiResponses(
       value = {
@@ -65,13 +64,13 @@ public class ProdutoController {
           @ApiResponse(code = 404, message = "Not found")
       }
   )
-  @PutMapping(path = "/editar/{id}")  
+  @PutMapping(path = "/{id}")  
   public ResponseEntity<Void> editarProduto(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest){
     editarProduto.execute(UUID.fromString(id), produtoRequest.toDomain());
     return ResponseEntity.ok().build();
   }
 
-  @GetMapping(path = "buscarPorCategoria")
+  @GetMapping
   public ResponseEntity<List<ProdutoResponse>> buscarPorCategoria(@RequestBody EProdutoCategoria categoria ){
     return ResponseEntity.ok().body(buscarProdutoPorCategoria.execute(categoria));
   }
