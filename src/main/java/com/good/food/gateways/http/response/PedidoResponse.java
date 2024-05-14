@@ -1,22 +1,16 @@
 package com.good.food.gateways.http.response;
 
 
-import com.good.food.domain.Cliente;
-import com.good.food.domain.EStatusPedido;
-import com.good.food.domain.ItemPedido;
-import com.good.food.domain.Pedido;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import com.good.food.domain.EStatusPedido;
+import com.good.food.domain.Pedido;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -24,20 +18,20 @@ import java.util.UUID;
 public class PedidoResponse {
 
 
-    private String id;
-    private String cpf;
-    private List<ItemPedido> itemPedido = new ArrayList<>();
-    private LocalDate dataAtualizacao;
-    private LocalDate dataCriacao;
-    private EStatusPedido status;
+  private String id;
+  private String cpf;
+  private List<ItemPedidoResponse> itemPedido = new ArrayList<>();
+  private LocalDate dataAtualizacao;
+  private LocalDate dataCriacao;
+  private EStatusPedido status;
 
-    public PedidoResponse(Pedido pedido) {
-        this.id = pedido.getId().toString();
-        this.cpf = pedido.getCliente().getCpf();
-        this.itemPedido = pedido.getItemPedido();
-        this.dataAtualizacao = pedido.getDataAtualizacao();
-        this.dataCriacao = pedido.getDataCriacao();
-        this.status = pedido.getStatus();
+  public PedidoResponse(Pedido pedido) {
+    this.id = pedido.getId().toString();
+    this.cpf = Optional.ofNullable(pedido.getCliente()).map(cli -> cli.getCpf()).orElse(null);
+    this.itemPedido = pedido.getItemPedido().stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
+    this.dataAtualizacao = pedido.getDataAtualizacao();
+    this.dataCriacao = pedido.getDataCriacao();
+    this.status = pedido.getStatus();
 
-    }
+  }
 }

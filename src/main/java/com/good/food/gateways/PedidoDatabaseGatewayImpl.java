@@ -14,7 +14,7 @@ import java.util.UUID;
 public class PedidoDatabaseGatewayImpl implements PedidoDatabaseGateway {
 
     @Autowired
-    private PedidoRepository pedidoRepository;
+    private final PedidoRepository pedidoRepository;
 
     @Override
     public Pedido save(Pedido pedido) {

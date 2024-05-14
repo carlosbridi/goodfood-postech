@@ -1,20 +1,22 @@
 package com.good.food.gateways.http.request;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import com.good.food.domain.EStatusPedido;
 import com.good.food.domain.Pedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoRequest implements Serializable {
 
+  private static final long serialVersionUID = 3561784885713114933L;
+  
   private String clienteCPF;
   private List<String> produtosUUID;
   
@@ -22,6 +24,7 @@ public class PedidoRequest implements Serializable {
     return Pedido.builder()
         .dataCriacao(LocalDate.now())
         .dataAtualizacao(LocalDate.now())
+        .itemPedido(new ArrayList())
         .status(EStatusPedido.RECEBIDO)
         .build();
   }

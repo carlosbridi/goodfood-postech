@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class ItemPedidoDatabaseGatewayImpl implements ItemPedidoDatabaseGateway{
 
     @Autowired
-    private ItemPedidoRepository itemPedidoRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
+    
     @Override
     public ItemPedido save(ItemPedido item) {
         return itemPedidoRepository.save(item);

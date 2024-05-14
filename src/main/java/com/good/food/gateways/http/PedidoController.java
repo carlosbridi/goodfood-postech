@@ -1,23 +1,22 @@
 package com.good.food.gateways.http;
 
-import com.good.food.domain.ItemPedido;
-import com.good.food.domain.Pedido;
+import java.net.URI;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import com.good.food.gateways.http.request.PedidoRequest;
 import com.good.food.gateways.http.response.PedidoResponse;
-import com.good.food.usecase.*;
+import com.good.food.usecase.CadastrarPedido;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("pedido")
@@ -26,10 +25,6 @@ import java.util.List;
 public class PedidoController {
 
   private final CadastrarPedido cadastrarPedido;
-  private final CadastrarItemPedido cadastrarItemPedido;
-  private final BuscarPedido buscarPedido;
-  private final BuscarProduto buscarProduto;
-  private final BuscarCliente buscarCliente;
   
   @ApiResponses(
       value = {
@@ -39,24 +34,9 @@ public class PedidoController {
   )
   @ResponseStatus(code = HttpStatus.CREATED)
   @PostMapping(path = "/cadastro")
-  public ResponseEntity cadastrarPedido(@RequestBody @Valid PedidoRequest pedidoRequest){
-    Pedido pedido = pedidoRequest.toDomain();
-    pedido.setCliente(buscarCliente.findByCpf(pedidoRequest.getClienteCPF()));
-    final PedidoResponse pedidoResponse = new PedidoResponse(cadastrarPedido.execute(pedido));
-
-    pedidoResponse.setItemPedido(gerarItemPedido(pedidoRequest, pedidoResponse));
+  public ResponseEntity<PedidoResponse> cadastrarPedido(@RequestBody @Valid PedidoRequest pedidoRequest){
+    final PedidoResponse pedidoResponse = new PedidoResponse(cadastrarPedido.execute(pedidoRequest));
     return ResponseEntity.created(URI.create("/"+pedidoResponse.getId())).body(pedidoResponse);
   }
 
-  private List<ItemPedido> gerarItemPedido(PedidoRequest pedidoRequest, PedidoResponse pedidoResponse){
-    List<ItemPedido> itemPedidoList = new ArrayList<>(pedidoRequest.getProdutosUUID().size());
-    for(String produtoUuid: pedidoRequest.getProdutosUUID()){
-      ItemPedido item = new ItemPedido();
-      item.setProduto(buscarProduto.execute(produtoUuid));
-      item.setPedido(buscarPedido.execute(pedidoResponse.getId()));
-      item.setPreco(item.getProduto().getPreco());
-      itemPedidoList.add(cadastrarItemPedido.execute(item));
-    }
-    return itemPedidoList;
-  }
 }
