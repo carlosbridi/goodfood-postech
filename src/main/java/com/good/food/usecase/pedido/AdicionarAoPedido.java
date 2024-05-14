@@ -3,6 +3,7 @@ package com.good.food.usecase.pedido;
 import com.good.food.domain.ItemPedido;
 import com.good.food.domain.Pedido;
 import com.good.food.domain.Produto;
+import com.good.food.domain.exceptions.PedidoNotFoundException;
 import com.good.food.gateways.PedidoDatabaseGateway;
 import com.good.food.gateways.http.request.PedidoRequest;
 import com.good.food.usecase.produto.BuscarProduto;
@@ -23,8 +24,13 @@ public class AdicionarAoPedido {
     private final BuscarPedido buscarPedido;
 
     public Pedido execute(final String uuidPedido, final PedidoRequest pedidoRequest) {
+        Pedido pedido;
 
-        Pedido pedido = buscarPedido.execute(uuidPedido);
+        try {
+            pedido = buscarPedido.execute(uuidPedido);
+        } catch (Exception e) {
+            throw new PedidoNotFoundException("Pedido não existente.", e);
+        }
 
         pedidoRequest.getProdutosUUID().forEach(produtoId -> {
             pedido.addItem( criarItemPedido(pedido, produtoId));

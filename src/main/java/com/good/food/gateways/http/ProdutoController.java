@@ -3,6 +3,9 @@ package com.good.food.gateways.http;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,6 +54,10 @@ public class ProdutoController {
   )
   @ResponseStatus(code = HttpStatus.CREATED)
   @PostMapping
+  @ApiImplicitParams({
+          @ApiImplicitParam(name = "descricao", value = "Descrição do produto", required = true, dataType = "string", paramType = "body"),
+          @ApiImplicitParam(name = "preco", value = "Preço do produto", required = true, dataType = "BigDecimal", paramType = "body"),
+          @ApiImplicitParam(name = "categoria", value = "Categoria do produto", required = true, dataType = "string", paramType = "body"),})
   public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest produtoRequest){
     final ProdutoResponse produtoResponse = new ProdutoResponse(cadastrarProduto.execute(produtoRequest.toDomain()));
     return
@@ -66,6 +73,10 @@ public class ProdutoController {
       }
   )
   @PutMapping(path = "/{id}")
+  @ApiImplicitParams({
+          @ApiImplicitParam(name = "descricao", value = "Descrição do produto", required = true, dataType = "string", paramType = "body"),
+          @ApiImplicitParam(name = "preco", value = "Preço do produto", required = true, dataType = "BigDecimal", paramType = "body"),
+          @ApiImplicitParam(name = "categoria", value = "Categoria do produto", required = true, dataType = "string", paramType = "body"),})
   public ResponseEntity<Void> editarProduto(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest) {
     editarProduto.execute(UUID.fromString(id), produtoRequest.toDomain());
     return ResponseEntity.ok().build();
