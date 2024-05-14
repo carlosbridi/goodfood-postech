@@ -1,4 +1,4 @@
-package com.good.food.usecase;
+package com.good.food.usecase.pedido;
 
 import com.good.food.domain.ItemPedido;
 import com.good.food.gateways.ItemPedidoDatabaseGateway;

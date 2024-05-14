@@ -1,4 +1,4 @@
-package com.good.food.usecase;
+package com.good.food.usecase.produto;
 
 import com.good.food.domain.Produto;
 import com.good.food.gateways.ProdutoDatabaseGateway;
