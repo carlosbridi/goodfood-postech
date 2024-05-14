@@ -33,7 +33,8 @@ public class Pedido {
   private Cliente cliente;  
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
   private List<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
-  
+
+  private LocalDate dataAtualizacao;
   private LocalDate dataCriacao;
   
   private EStatusPedido status;

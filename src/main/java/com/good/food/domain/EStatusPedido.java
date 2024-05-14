@@ -11,5 +11,13 @@ public enum EStatusPedido {
   FINALIZADO("Finalizado");
   
   public String name;
+
+  public static EStatusPedido getByString(final String status) {
+    try {
+      return EStatusPedido.valueOf(status);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Tipo incompatível, tipos disponíveis: RECEBIDO, EM_PREPARACAO, PRONTO e FINALIZADO");
+    }
+  }
   
 }

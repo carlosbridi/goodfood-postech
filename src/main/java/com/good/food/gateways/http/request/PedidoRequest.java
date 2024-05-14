@@ -1,9 +1,11 @@
 package com.good.food.gateways.http.request;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import com.good.food.domain.EProdutoCategoria;
-import com.good.food.domain.Produto;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import com.good.food.domain.EStatusPedido;
+import com.good.food.domain.Pedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,18 +15,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PedidoRequest implements Serializable {
 
-  private static final long serialVersionUID = 8052492168210242514L;
+  private static final long serialVersionUID = 3561784885713114933L;
   
-  private String descricao;
-  private BigDecimal preco;
-  private String categoria;
+  private String clienteCPF;
+  private List<String> produtosUUID;
   
-  public Produto toDomain() {
-    return Produto.builder()
-        .descricao(descricao)
-        .preco(preco)        
-        .categoria(EProdutoCategoria.getByString(categoria))
-      .build();
+  public Pedido toDomain() {
+    return Pedido.builder()
+        .dataCriacao(LocalDate.now())
+        .dataAtualizacao(LocalDate.now())
+        .itemPedido(new ArrayList())
+        .status(EStatusPedido.RECEBIDO)
+        .build();
   }
   
 }
