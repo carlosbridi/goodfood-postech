@@ -13,7 +13,7 @@ spring:
     name: Good Food Service
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   flwyay:
     validateMigrationNaming: false
     locations: classpath:db/migration

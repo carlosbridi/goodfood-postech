@@ -18,7 +18,7 @@ public class PedidoRequest implements Serializable {
   private static final long serialVersionUID = 3561784885713114933L;
   
   private String clienteCPF;
-  private List<String> produtosUUID;
+  private List<ItemPedidoRequest> itemPedidos;
   
   public Pedido toDomain() {
     return Pedido.builder()

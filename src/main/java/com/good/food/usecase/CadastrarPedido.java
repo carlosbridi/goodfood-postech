@@ -1,6 +1,6 @@
 package com.good.food.usecase;
 
-import java.util.List;
+import com.good.food.gateways.http.request.ItemPedidoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.domain.ItemPedido;
@@ -9,6 +9,8 @@ import com.good.food.domain.Produto;
 import com.good.food.gateways.PedidoDatabaseGateway;
 import com.good.food.gateways.http.request.PedidoRequest;
 import lombok.RequiredArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor
@@ -21,27 +23,30 @@ public class CadastrarPedido {
   private final BuscarCliente buscarCliente;
   @Autowired
   private final BuscarProduto buscarProduto;
+  @Autowired
+  private final CadastrarItemPedido cadastrarItemPedido;
   
   public Pedido execute(final PedidoRequest pedidoRequest) {
 
     final Pedido pedido = pedidoRequest.toDomain();
     pedido.setCliente(buscarCliente.findByCpf(pedidoRequest.getClienteCPF()));
-    
-    pedidoRequest.getProdutosUUID().forEach(produtoId -> {
-      pedido.addItem( criarItemPedido(pedido, produtoId));
+    pedidoDatabaseGateway.save(pedido);
+
+    pedidoRequest.getItemPedidos().forEach(itemPedidoRequest -> {
+      pedido.addItem( criarItemPedido(pedido, itemPedidoRequest));
     });
     
     return pedidoDatabaseGateway.save(pedido);
   }
   
-  private ItemPedido criarItemPedido(final Pedido pedido, final String itemPedidoId) {
-    final Produto produto = buscarProduto.execute(itemPedidoId);
+  private ItemPedido criarItemPedido(final Pedido pedido, final ItemPedidoRequest itemPedidoRequest) {
+    final Produto produto = buscarProduto.execute(itemPedidoRequest.getProdutoUUID());
     
-    final ItemPedido itemPedido = new ItemPedido();
+    final ItemPedido itemPedido = itemPedidoRequest.toDomain();
     itemPedido.setProduto(produto);
-    itemPedido.setPreco(produto.getPreco());
+    itemPedido.setPreco(produto.getPreco().multiply(BigDecimal.valueOf(itemPedido.getQuantidade())));
     itemPedido.setPedido(pedido);
-    
+    cadastrarItemPedido.execute(itemPedido);
     return itemPedido;
     
   }
