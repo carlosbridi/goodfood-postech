@@ -24,7 +24,7 @@ public class Pedido {
   private UUID id;
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   private Cliente cliente;  
-  @ManyToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
   private List<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
 
   private LocalDate dataAtualizacao;
