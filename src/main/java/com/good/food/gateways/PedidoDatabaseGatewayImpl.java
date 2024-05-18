@@ -23,7 +23,12 @@ public class PedidoDatabaseGatewayImpl implements PedidoDatabaseGateway {
 
     @Override
     public Pedido findById(String uuid) {
-        return pedidoRepository.findById(UUID.fromString(uuid)).get();
+        return findById(UUID.fromString(uuid));
+    }
+
+    @Override
+    public Pedido findById(UUID uuid) {
+        return pedidoRepository.findById(uuid).get();
     }
 
     @Override

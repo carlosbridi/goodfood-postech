@@ -11,10 +11,10 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class BuscarProduto {
-    @Autowired
-    private final ProdutoDatabaseGateway produtoDatabaseGateway;
+  @Autowired
+  private final ProdutoDatabaseGateway produtoDatabaseGateway;
 
-    public Produto execute(String uuid){
-        return produtoDatabaseGateway.findById(UUID.fromString(uuid));
-    }
+  public Produto execute(String uuid) {
+    return produtoDatabaseGateway.findById(UUID.fromString(uuid));
+  }
 }

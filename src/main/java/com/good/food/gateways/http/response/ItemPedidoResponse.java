@@ -14,6 +14,8 @@ public class ItemPedidoResponse {
 
   private String id;
   private String descricao;
+  private String observacoes;
+  private int quantidade;
   private BigDecimal preco;
   private EProdutoCategoria categoria;
   
@@ -22,6 +24,8 @@ public class ItemPedidoResponse {
     this.preco = itemPedido.getPreco();
     this.descricao = itemPedido.getProduto().getDescricao();
     this.categoria = itemPedido.getProduto().getCategoria();
+    this.observacoes = itemPedido.getObservacoes();
+    this.quantidade = itemPedido.getQuantidade();
   }
   
 }
