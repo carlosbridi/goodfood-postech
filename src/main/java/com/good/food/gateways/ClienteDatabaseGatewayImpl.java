@@ -12,7 +12,7 @@ public class ClienteDatabaseGatewayImpl implements ClienteDatabaseGateway {
 
   @Autowired
   private final ClienteRepository clienteRepository;
-  
+
   @Override
   public Cliente save(Cliente cliente) {
     return clienteRepository.save(cliente);

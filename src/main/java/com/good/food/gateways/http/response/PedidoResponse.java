@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoResponse {
-
-
+  
   private String id;
   private String cpf;
   private List<ItemPedidoResponse> itemPedido = new ArrayList<>();
@@ -32,6 +31,5 @@ public class PedidoResponse {
     this.dataAtualizacao = pedido.getDataAtualizacao();
     this.dataCriacao = pedido.getDataCriacao();
     this.status = pedido.getStatus();
-
   }
 }

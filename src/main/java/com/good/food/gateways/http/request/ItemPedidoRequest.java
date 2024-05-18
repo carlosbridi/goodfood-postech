@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemPedidoRequest {
-    private String produtoUUID;
-    private String observacoes;
-    private int quantidade;
 
-    public ItemPedido toDomain() {
-        return ItemPedido.builder()
-                .observacoes(observacoes)
-                .quantidade(quantidade)
-                .build();
-    }
+  private String produtoUUID;
+  private String observacoes;
+  private int quantidade;
+
+  public ItemPedido toDomain() {
+    return ItemPedido.builder().observacoes(observacoes).quantidade(quantidade).build();
+  }
 }

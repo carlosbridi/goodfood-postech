@@ -12,10 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BuscarTodosPedidosAbertos {
 
-    @Autowired
-    private final PedidoDatabaseGateway pedidoDatabaseGateway;
+  @Autowired
+  private final PedidoDatabaseGateway pedidoDatabaseGateway;
 
-    public List<Pedido> execute(){
-        return pedidoDatabaseGateway.findAll();
-    }
+  public List<Pedido> execute() {
+    return pedidoDatabaseGateway.findAll();
+  }
 }
