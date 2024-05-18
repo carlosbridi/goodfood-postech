@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,23 +35,11 @@ public class ClienteController {
   @ApiResponses(
       value = {
           @ApiResponse(code = 200, message = "Ok"),
-      }
-  )
-  @ResponseStatus(code = HttpStatus.OK)
-  @GetMapping(path = "/hello-world")
-  public ResponseEntity<String> helloWorld(){
-    return 
-        ResponseEntity.ok().body("Hello World");
-  }
-  
-  @ApiResponses(
-      value = {
-          @ApiResponse(code = 200, message = "Ok"),
           @ApiResponse(code = 201, message = "Created")
       }
   )
   @ResponseStatus(code = HttpStatus.CREATED)
-  @PostMapping(path = "/cadastro")
+  @PostMapping
   public ResponseEntity<ClienteResponse> cadastrarCliente(@RequestBody ClienteRequest clienteRequest){
     final ClienteResponse clienteResponse = new ClienteResponse(cadastrarCliente.execute(clienteRequest.toDomain()));
     return 
