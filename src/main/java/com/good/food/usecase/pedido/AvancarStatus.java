@@ -1,4 +1,4 @@
-package com.good.food.usecase;
+package com.good.food.usecase.pedido;
 
 import com.good.food.domain.EStatusPedido;
 import com.good.food.domain.Pedido;

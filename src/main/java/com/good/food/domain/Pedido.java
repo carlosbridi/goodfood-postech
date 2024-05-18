@@ -24,8 +24,8 @@ public class Pedido {
   private UUID id;
   @ManyToOne(optional = true, fetch = FetchType.LAZY)
   private Cliente cliente;  
-  @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-  private List<ItemPedido> itemPedido = new ArrayList<ItemPedido>();
+  @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<ItemPedido> itemPedido = new ArrayList<>();
 
   private LocalDate dataAtualizacao;
   private LocalDate dataCriacao;
@@ -34,5 +34,9 @@ public class Pedido {
   
   public void addItem(final ItemPedido itemPedido) {
     this.itemPedido.add(itemPedido);
+  }
+
+  public void removerItem(final String itemToRemove) {
+    this.itemPedido.removeIf(itemPedido1 -> itemPedido1.getId().toString().equals(itemToRemove));
   }
 }
