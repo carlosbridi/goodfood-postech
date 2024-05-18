@@ -1,4 +1,4 @@
-package com.good.food.usecase;
+package com.good.food.usecase.produto;
 
 import com.good.food.domain.Produto;
 import com.good.food.gateways.ProdutoDatabaseGateway;
@@ -11,10 +11,10 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class BuscarProduto {
-    @Autowired
-    private final ProdutoDatabaseGateway produtoDatabaseGateway;
+  @Autowired
+  private final ProdutoDatabaseGateway produtoDatabaseGateway;
 
-    public Produto execute(String uuid){
-        return produtoDatabaseGateway.findById(UUID.fromString(uuid));
-    }
+  public Produto execute(String uuid) {
+    return produtoDatabaseGateway.findById(UUID.fromString(uuid));
+  }
 }
