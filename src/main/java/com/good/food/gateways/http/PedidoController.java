@@ -3,6 +3,8 @@ package com.good.food.gateways.http;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +69,7 @@ public class PedidoController {
       @ApiResponse(code = 201, message = "Created")})
   @ResponseStatus(code = HttpStatus.OK)
   @GetMapping()
+  @Operation(summary = "Listar os pedidos.", description = "Retorna todos os pedidos abertos.")
   public ResponseEntity<List<PedidoResponse>> retornarTodosPedidosAbertos() {
     return ResponseEntity.ok().body(buscarTodosPedidosAbertos
         .execute().stream()
@@ -84,6 +87,7 @@ public class PedidoController {
       @ApiImplicitParam(name = "produtosUUID",
           value = "Lista com uuid dos produtos a serem adicionados", required = true,
           dataType = "array", paramType = "body"),})
+  @Operation(summary = "Fake Checkout", description = "Cadastra o pedido na fila.")
   public ResponseEntity<PedidoResponse> cadastrarPedido(
       @RequestBody @Valid PedidoRequest pedidoRequest) {
     final PedidoResponse pedidoResponse =
