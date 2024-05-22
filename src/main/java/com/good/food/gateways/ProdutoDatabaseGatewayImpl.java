@@ -30,7 +30,7 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
 
   @Override
   public List<Produto> findByCategory(String category) {
-    return CollectionUtils.emptyIfNull(produtoRepository.findByCategoria(EProdutoCategoria.valueOf(category)))
+    return CollectionUtils.emptyIfNull(produtoRepository.findByCategoria(EProdutoCategoria.getByString(category)))
         .stream()
         .map(ProdutoEntity::toDomain)
         .collect(Collectors.toList());

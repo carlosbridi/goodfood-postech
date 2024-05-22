@@ -1,5 +1,6 @@
 package com.good.food.gateways;
 
+import java.util.Optional;
 import org.springframework.stereotype.Component;
 import com.good.food.core.entity.ClienteEntity;
 import com.good.food.domain.Cliente;
@@ -19,9 +20,8 @@ public class ClienteDatabaseGatewayImpl implements ClienteDatabaseGateway {
 
   @Override
   public Cliente findByCpf(String cpf) {
-    return clienteRepository.findByCpf(cpf)
-        .map(ClienteEntity::toDomain)
-        .orElse(null);
+    final Optional<ClienteEntity> findByCpf = clienteRepository.findByCpf(cpf);
+    return findByCpf.isPresent() ? findByCpf.get().toDomain() : null;
   }
 
 }

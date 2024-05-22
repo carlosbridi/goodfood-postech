@@ -30,15 +30,15 @@ public class ProdutoEntity {
   private EProdutoCategoria categoria;
   
   public ProdutoEntity(Produto produto) {
-    id = UUID.fromString(produto.getId());
+    id = produto.getId();
     descricao = produto.getDescricao();
     preco = produto.getPreco();
-    categoria = EProdutoCategoria.valueOf(produto.getCategoria());
+    categoria = EProdutoCategoria.getByString(produto.getCategoria());
   }
   
   public Produto toDomain(){
     return Produto.builder()
-      .id(id.toString())
+      .id(id)
       .descricao(descricao)
       .preco(preco)
       .categoria(categoria.toString())

@@ -1,7 +1,7 @@
 package com.good.food.gateways.http;
 
 import java.net.URI;
-
+import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,7 +60,8 @@ public class ClienteController {
   @Operation(summary = "Identificação do Cliente via CPF", description = "Procura o cliente pelo CPF")
   public ResponseEntity<ClienteResponse> findByCpf(@RequestParam String cpf){
     return 
-        ResponseEntity.ok().body(new ClienteResponse(buscarCliente.execute(cpf)));
+        ResponseEntity.ok().body(
+            Optional.ofNullable(buscarCliente.execute(cpf)).map(ClienteResponse::new).orElse(null));
   }
 
 }

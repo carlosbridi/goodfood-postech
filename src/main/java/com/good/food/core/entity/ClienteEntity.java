@@ -25,14 +25,14 @@ public class ClienteEntity {
   private String cpf;
   
   public ClienteEntity(Cliente cliente) {
-    id = UUID.fromString(cliente.getId());
+    id = cliente.getId();
     nome = cliente.getNome();
     cpf = cliente.getCpf();
   }
   
   public Cliente toDomain() {
     return Cliente.builder()
-        .id(id.toString())
+        .id(id)
         .nome(nome)
         .cpf(cpf)
       .build();

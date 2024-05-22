@@ -1,6 +1,7 @@
 package com.good.food.domain;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Builder
 public class Produto {
   
-  private String id;
+  private UUID id;
   private String descricao;
   private BigDecimal preco;
   private String categoria;
