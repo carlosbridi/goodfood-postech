@@ -1,6 +1,5 @@
 package com.good.food.gateways;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.domain.Cliente;
 import com.good.food.repository.ClienteRepository;
@@ -10,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ClienteDatabaseGatewayImpl implements ClienteDatabaseGateway {
 
-  @Autowired
   private final ClienteRepository clienteRepository;
 
   @Override

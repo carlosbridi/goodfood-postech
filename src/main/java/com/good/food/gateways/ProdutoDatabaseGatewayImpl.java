@@ -2,7 +2,6 @@ package com.good.food.gateways;
 
 import java.util.List;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.domain.EProdutoCategoria;
 import com.good.food.domain.Produto;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
 
-  @Autowired
   private final ProdutoRepository produtoRepository;
 
   @Override
@@ -34,7 +32,7 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
 
   @Override
   public Produto findById(UUID uuid) {
-    return produtoRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Produto não encontrado"));
+    return produtoRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Produto não encontrado."));
   }
 
 }

@@ -18,7 +18,7 @@ public class CustomExceptionHandler {
   }
   
   @ExceptionHandler(IllegalArgumentException.class)
-  public HttpEntity<Object> handleNotFoundException(final IllegalArgumentException ex){
+  public HttpEntity<Object> handleIllegalArgumentException(final IllegalArgumentException ex){
     HttpHeaders httpHeaders = new HttpHeaders();
     return new ResponseEntity<>(ex.getMessage(), httpHeaders, HttpStatus.BAD_REQUEST);
   }

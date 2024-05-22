@@ -56,7 +56,7 @@ public class ClienteController {
   @PostMapping(path = "/buscar-cpf")
   public ResponseEntity<ClienteResponse> findByCpf(@RequestParam String cpf){
     return 
-        ResponseEntity.ok().body(new ClienteResponse(buscarCliente.findByCpf(cpf)));
+        ResponseEntity.ok().body(new ClienteResponse(buscarCliente.execute(cpf)));
   }
 
 }

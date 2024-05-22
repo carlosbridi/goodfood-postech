@@ -25,7 +25,6 @@ public class PedidoRequest implements Serializable {
         .dataCriacao(LocalDate.now())
         .dataAtualizacao(LocalDate.now())
         .itemPedido(new ArrayList<>())
-        .status(EStatusPedido.RECEBIDO)
         .build();
   }
   
