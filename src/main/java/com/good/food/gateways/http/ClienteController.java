@@ -1,6 +1,8 @@
 package com.good.food.gateways.http;
 
 import java.net.URI;
+
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +42,7 @@ public class ClienteController {
   )
   @ResponseStatus(code = HttpStatus.CREATED)
   @PostMapping
+  @Operation(summary = "Cadastro do Cliente", description = "Cadastra o cliente no banco.")
   public ResponseEntity<ClienteResponse> cadastrarCliente(@RequestBody ClienteRequest clienteRequest){
     final ClienteResponse clienteResponse = new ClienteResponse(cadastrarCliente.execute(clienteRequest.toDomain()));
     return 
@@ -54,6 +57,7 @@ public class ClienteController {
   )
   @ResponseStatus(code = HttpStatus.OK)
   @PostMapping(path = "/buscar-cpf")
+  @Operation(summary = "Identificação do Cliente via CPF", description = "Procura o cliente pelo CPF")
   public ResponseEntity<ClienteResponse> findByCpf(@RequestParam String cpf){
     return 
         ResponseEntity.ok().body(new ClienteResponse(buscarCliente.findByCpf(cpf)));

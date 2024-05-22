@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -58,6 +59,7 @@ public class ProdutoController {
           @ApiImplicitParam(name = "descricao", value = "Descrição do produto", required = true, dataType = "string", paramType = "body"),
           @ApiImplicitParam(name = "preco", value = "Preço do produto", required = true, dataType = "BigDecimal", paramType = "body"),
           @ApiImplicitParam(name = "categoria", value = "Categoria do produto", required = true, dataType = "string", paramType = "body"),})
+  @Operation(summary = "Criar produto.", description = "Cadastrar um produto no banco.")
   public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest produtoRequest){
     final ProdutoResponse produtoResponse = new ProdutoResponse(cadastrarProduto.execute(produtoRequest.toDomain()));
     return
@@ -77,6 +79,7 @@ public class ProdutoController {
           @ApiImplicitParam(name = "descricao", value = "Descrição do produto", required = true, dataType = "string", paramType = "body"),
           @ApiImplicitParam(name = "preco", value = "Preço do produto", required = true, dataType = "BigDecimal", paramType = "body"),
           @ApiImplicitParam(name = "categoria", value = "Categoria do produto", required = true, dataType = "string", paramType = "body"),})
+  @Operation(summary = "Editar produtos.", description = "Editar um produto cadastrado baseado no uuid dele.")
   public ResponseEntity<Void> editarProduto(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest) {
     editarProduto.execute(UUID.fromString(id), produtoRequest.toDomain());
     return ResponseEntity.ok().build();
@@ -88,6 +91,7 @@ public class ProdutoController {
   }
 
   @DeleteMapping(path = "/{produtoId}")
+  @Operation(summary = "Remover produto.", description = "Remover um produto baseado no uuid dele.")
   public ResponseEntity<Void> removerProduto(@PathVariable String produtoId){
     removerProduto.execute(UUID.fromString(produtoId));
     return ResponseEntity.ok().build();
