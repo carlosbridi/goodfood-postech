@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import com.good.food.domain.EStatusPedido;
 import com.good.food.domain.Pedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class PedidoResponse {
   private List<ItemPedidoResponse> itemPedido = new ArrayList<>();
   private LocalDate dataAtualizacao;
   private LocalDate dataCriacao;
-  private EStatusPedido status;
+  private String status;
 
   public PedidoResponse(Pedido pedido) {
     this.id = pedido.getId().toString();
@@ -30,6 +29,6 @@ public class PedidoResponse {
     this.itemPedido = pedido.getItemPedido().stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
     this.dataAtualizacao = pedido.getDataAtualizacao();
     this.dataCriacao = pedido.getDataCriacao();
-    this.status = pedido.getStatus();
+    this.status = pedido.getStatus().toString();
   }
 }

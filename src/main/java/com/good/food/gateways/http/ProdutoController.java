@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.good.food.domain.EProdutoCategoria;
+import com.good.food.core.entity.EProdutoCategoria;
 import com.good.food.gateways.http.request.ProdutoRequest;
 import com.good.food.gateways.http.response.ProdutoResponse;
 import com.good.food.usecase.produto.BuscarProdutoPorCategoria;
@@ -86,7 +86,7 @@ public class ProdutoController {
   }
 
   @GetMapping
-  public ResponseEntity<List<ProdutoResponse>> buscarPorCategoria(@RequestParam EProdutoCategoria categoria) {
+  public ResponseEntity<List<ProdutoResponse>> buscarPorCategoria(@RequestParam String categoria) {
     return ResponseEntity.ok().body(buscarProdutoPorCategoria.execute(categoria));
   }
 

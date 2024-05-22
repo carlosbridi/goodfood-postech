@@ -1,31 +1,18 @@
 package com.good.food.domain;
 
 import java.math.BigDecimal;
-import java.util.UUID;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
-@Data
+@Getter
+@Setter
 @Builder
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class Produto {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  
+  private String id;
   private String descricao;
   private BigDecimal preco;
-  @Enumerated(EnumType.STRING)
-  private EProdutoCategoria categoria;
+  private String categoria;
   
 }

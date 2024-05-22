@@ -14,11 +14,7 @@ public class AlterarProduto {
   private ProdutoDatabaseGateway produtoDatabaseGateway;
   
   public Produto execute(String id, Produto produto) {
-    
-    
-    
     produtoDatabaseGateway.save(produto);
-    
     return null;
   }
   

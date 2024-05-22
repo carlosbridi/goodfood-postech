@@ -17,7 +17,8 @@ public class CadastrarItemPedido {
   @Autowired
   private final BuscarProduto buscarProduto;
 
-  protected ItemPedido execute(final Pedido pedido, final ItemPedidoRequest itemPedidoRequest) {
+  protected ItemPedido execute(final Pedido pedido,
+      final ItemPedidoRequest itemPedidoRequest) {
     final Produto produto = buscarProduto.execute(itemPedidoRequest.getProdutoUUID());
 
     final ItemPedido itemPedido = itemPedidoRequest.toDomain();

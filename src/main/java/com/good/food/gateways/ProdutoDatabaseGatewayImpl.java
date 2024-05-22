@@ -2,8 +2,11 @@ package com.good.food.gateways;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-import com.good.food.domain.EProdutoCategoria;
+import com.good.food.core.entity.EProdutoCategoria;
+import com.good.food.core.entity.ProdutoEntity;
 import com.good.food.domain.Produto;
 import com.good.food.domain.exceptions.NotFoundException;
 import com.good.food.repository.ProdutoRepository;
@@ -17,7 +20,7 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
 
   @Override
   public Produto save(Produto produto) {
-    return produtoRepository.save(produto);
+    return produtoRepository.save(new ProdutoEntity(produto)).toDomain();
   }
 
   @Override
@@ -26,13 +29,19 @@ public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
   }
 
   @Override
-  public List<Produto> findByCategory(EProdutoCategoria category) {
-    return produtoRepository.findByCategoria(category);
+  public List<Produto> findByCategory(String category) {
+    return CollectionUtils.emptyIfNull(produtoRepository.findByCategoria(EProdutoCategoria.valueOf(category)))
+        .stream()
+        .map(ProdutoEntity::toDomain)
+        .collect(Collectors.toList());
   }
 
   @Override
   public Produto findById(UUID uuid) {
-    return produtoRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Produto não encontrado."));
+    return produtoRepository
+        .findById(uuid)
+        .map(ProdutoEntity::toDomain)
+        .orElseThrow(() -> new NotFoundException("Produto não encontrado."));
   }
 
 }

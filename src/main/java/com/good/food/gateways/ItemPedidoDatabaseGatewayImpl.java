@@ -1,6 +1,7 @@
 package com.good.food.gateways;
 
 import org.springframework.stereotype.Component;
+import com.good.food.core.entity.ItemPedidoEntity;
 import com.good.food.domain.ItemPedido;
 import com.good.food.repository.ItemPedidoRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,6 @@ public class ItemPedidoDatabaseGatewayImpl implements ItemPedidoDatabaseGateway 
 
   @Override
   public ItemPedido save(ItemPedido item) {
-    return itemPedidoRepository.save(item);
+    return itemPedidoRepository.save(new ItemPedidoEntity(item)).toDomain();
   }
 }

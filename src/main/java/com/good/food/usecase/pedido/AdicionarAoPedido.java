@@ -1,6 +1,7 @@
 package com.good.food.usecase.pedido;
 
 import org.springframework.stereotype.Component;
+import com.good.food.core.entity.PedidoEntity;
 import com.good.food.domain.Pedido;
 import com.good.food.domain.exceptions.NotFoundException;
 import com.good.food.gateways.PedidoDatabaseGateway;

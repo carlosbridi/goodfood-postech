@@ -2,7 +2,7 @@ package com.good.food.gateways.http.request;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import com.good.food.domain.EProdutoCategoria;
+import com.good.food.core.entity.EProdutoCategoria;
 import com.good.food.domain.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class ProdutoRequest implements Serializable {
     return Produto.builder()
         .descricao(descricao)
         .preco(preco)        
-        .categoria(EProdutoCategoria.getByString(categoria))
+        .categoria(categoria)
       .build();
   }
   

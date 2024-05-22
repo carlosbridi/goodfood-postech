@@ -1,4 +1,4 @@
-package com.good.food.domain;
+package com.good.food.core.entity;
 
 import lombok.AllArgsConstructor;
 

@@ -15,7 +15,7 @@ public class RegredirStatus {
 
   public Pedido execute(String pedidoId) {
     Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
-    pedidoAtual.setStatus(pedidoAtual.getStatus().previous());
+//    pedidoAtual.setStatus(pedidoAtual.getStatus().previous());
     return pedidoDatabaseGateway.save(pedidoAtual);
   }
 }

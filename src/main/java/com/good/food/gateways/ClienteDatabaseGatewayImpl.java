@@ -1,6 +1,7 @@
 package com.good.food.gateways;
 
 import org.springframework.stereotype.Component;
+import com.good.food.core.entity.ClienteEntity;
 import com.good.food.domain.Cliente;
 import com.good.food.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +14,14 @@ public class ClienteDatabaseGatewayImpl implements ClienteDatabaseGateway {
 
   @Override
   public Cliente save(Cliente cliente) {
-    return clienteRepository.save(cliente);
+    return clienteRepository.save(new ClienteEntity(cliente)).toDomain();
   }
 
   @Override
   public Cliente findByCpf(String cpf) {
-    return clienteRepository.findByCpf(cpf).orElse(null);
+    return clienteRepository.findByCpf(cpf)
+        .map(ClienteEntity::toDomain)
+        .orElse(null);
   }
 
 }

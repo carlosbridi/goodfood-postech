@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.good.food.domain.EStatusPedido;
 import com.good.food.domain.Pedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;

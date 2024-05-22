@@ -1,7 +1,6 @@
 package com.good.food.gateways.http.response;
 
 import java.math.BigDecimal;
-import com.good.food.domain.EProdutoCategoria;
 import com.good.food.domain.ItemPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class ItemPedidoResponse {
   private String observacoes;
   private int quantidade;
   private BigDecimal preco;
-  private EProdutoCategoria categoria;
+  private String categoria;
   
   public ItemPedidoResponse(final ItemPedido itemPedido) {
     this.id = itemPedido.getId().toString();

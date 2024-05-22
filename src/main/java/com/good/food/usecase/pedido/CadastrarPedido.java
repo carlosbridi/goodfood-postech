@@ -1,7 +1,6 @@
 package com.good.food.usecase.pedido;
 
 import org.springframework.stereotype.Component;
-import com.good.food.domain.EStatusPedido;
 import com.good.food.domain.Pedido;
 import com.good.food.gateways.PedidoDatabaseGateway;
 import com.good.food.gateways.http.request.PedidoRequest;
@@ -21,7 +20,7 @@ public class CadastrarPedido {
     pedido.setCliente(buscarCliente.execute(pedidoRequest.getClienteCPF()));
     
     // useCase futuro pra pagamento
-    pedido.setStatus(EStatusPedido.RECEBIDO);
+    pedido.setStatus("RECEBIDO");
     
     pedidoRequest.getItemPedidos()
       .forEach(itemPedidoRequest -> {

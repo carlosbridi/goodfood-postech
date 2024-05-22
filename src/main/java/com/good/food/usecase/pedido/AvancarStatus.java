@@ -15,7 +15,8 @@ public class AvancarStatus {
 
   public Pedido execute(String pedidoId) {
     Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
-    pedidoAtual.setStatus(pedidoAtual.getStatus().next());
+    //Avaliar
+//    pedidoAtual.setStatus(pedidoAtual.getStatus().next());
     return pedidoDatabaseGateway.save(pedidoAtual);
   }
 }
