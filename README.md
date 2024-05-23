@@ -28,13 +28,7 @@ Rodar o comando `docker-compose up -d`, assim que o download das imagens do banc
 
 
 # Endpoints
-  Identificar o controller e a doc
-
-
-# Rever
-Error 500
-
-UseCase com interface
+  
 
 
 # Equipe
