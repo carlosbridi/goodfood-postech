@@ -13,7 +13,7 @@ Tecnologias utilizadas
 - Java
 - Springboot
 - Maven
-  Banco de dados:
+- Banco de dados:
 - PostegreSQL 16
 
 
