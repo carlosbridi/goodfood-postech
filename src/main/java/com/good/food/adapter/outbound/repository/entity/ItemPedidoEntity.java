@@ -14,10 +14,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "item_pedido")
 public class ItemPedidoEntity {
@@ -58,7 +60,7 @@ public class ItemPedidoEntity {
     return ItemPedido.builder()
         .id(id)
         .produto(produto.toDomain())
-        .pedido(pedido.toDomain())
+//        .pedido(pedido.toDomain())
         .preco(preco)
         .quantidade(quantidade)
         .observacoes(observacoes)

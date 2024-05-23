@@ -1,7 +1,6 @@
 package com.good.food.adapter.inbound.controller;
 
 import java.net.URI;
-import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +48,7 @@ public class ClienteController {
   @ApiResponses(
       value = {
           @ApiResponse(code = 200, message = "Ok"),
+          @ApiResponse(code = 400, message = "Bad request"),
       }
   )
   @ResponseStatus(code = HttpStatus.OK)
@@ -57,7 +57,7 @@ public class ClienteController {
   public ResponseEntity<ClienteResponse> findByCpf(@RequestParam String cpf){
     return 
         ResponseEntity.ok().body(
-            Optional.ofNullable(buscarCliente.execute(cpf)).map(ClienteResponse::new).orElse(null));
+            new ClienteResponse(buscarCliente.execute(cpf)));
   }
 
 }
