@@ -1,4 +1,4 @@
-package com.good.food.usecase.pedido;
+package com.good.food.core.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,12 +8,14 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class BuscarPedido {
+public class RegredirStatus {
 
   @Autowired
   private final PedidoDatabaseGateway pedidoDatabaseGateway;
 
-  public Pedido execute(String uuid) {
-    return pedidoDatabaseGateway.findById(uuid);
+  public Pedido execute(String pedidoId) {
+    Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
+//    pedidoAtual.setStatus(pedidoAtual.getStatus().previous());
+    return pedidoDatabaseGateway.save(pedidoAtual);
   }
 }

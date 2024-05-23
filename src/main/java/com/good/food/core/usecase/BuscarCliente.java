@@ -1,4 +1,4 @@
-package com.good.food.usecase.cliente;
+package com.good.food.core.usecase;
 
 import org.springframework.stereotype.Component;
 import com.good.food.domain.Cliente;

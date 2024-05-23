@@ -1,20 +1,25 @@
 package com.good.food.core.entity;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.UUID;
 import com.good.food.domain.ItemPedido;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
+@Table(name = "item_pedido")
 public class ItemPedidoEntity {
   
   @Id
@@ -52,8 +57,8 @@ public class ItemPedidoEntity {
   public ItemPedido toDomain() {
     return ItemPedido.builder()
         .id(id)
-        .pedido(Optional.ofNullable(pedido).map(PedidoEntity::toDomain).orElse(null))
         .produto(produto.toDomain())
+        .pedido(pedido.toDomain())
         .preco(preco)
         .quantidade(quantidade)
         .observacoes(observacoes)

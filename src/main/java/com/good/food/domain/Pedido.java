@@ -19,14 +19,4 @@ public class Pedido {
   private LocalDate dataCriacao;
   private String status;
   
-  public void addItem(final ItemPedido itemPedido) {
-    this.itemPedido.add(itemPedido);
-  }
-
-  public void removerItem(final String itemToRemove) {
-    this.itemPedido.removeIf(itemPedido1 -> itemPedido1.getId().toString().equals(itemToRemove));
-  }
-  
-  
-  
 }

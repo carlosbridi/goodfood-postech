@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.good.food.core.usecase.AdicionarAoPedido;
+import com.good.food.core.usecase.AvancarStatus;
+import com.good.food.core.usecase.BuscarTodosPedidosAbertos;
+import com.good.food.core.usecase.CadastrarPedido;
+import com.good.food.core.usecase.RegredirStatus;
+import com.good.food.core.usecase.RemoverDoPedido;
 import com.good.food.domain.exceptions.NotFoundException;
 import com.good.food.gateways.http.request.PedidoRequest;
 import com.good.food.gateways.http.response.PedidoResponse;
-import com.good.food.usecase.pedido.AdicionarAoPedido;
-import com.good.food.usecase.pedido.AvancarStatus;
-import com.good.food.usecase.pedido.BuscarTodosPedidosAbertos;
-import com.good.food.usecase.pedido.CadastrarPedido;
-import com.good.food.usecase.pedido.RegredirStatus;
-import com.good.food.usecase.pedido.RemoverDoPedido;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -71,8 +71,9 @@ public class PedidoController {
   @GetMapping()
   @Operation(summary = "Listar os pedidos.", description = "Retorna todos os pedidos abertos.")
   public ResponseEntity<List<PedidoResponse>> retornarTodosPedidosAbertos() {
-    return ResponseEntity.ok().body(buscarTodosPedidosAbertos
-        .execute().stream()
+    return ResponseEntity.ok().body(
+        buscarTodosPedidosAbertos.execute()
+        .stream()
         .map(PedidoResponse::new)
         .collect(Collectors.toList()));
   }

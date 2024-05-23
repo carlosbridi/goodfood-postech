@@ -1,4 +1,4 @@
-package com.good.food.usecase.produto;
+package com.good.food.core.usecase;
 
 import java.util.UUID;
 import org.springframework.stereotype.Component;

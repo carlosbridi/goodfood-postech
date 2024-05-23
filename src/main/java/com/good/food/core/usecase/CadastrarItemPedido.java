@@ -1,23 +1,24 @@
-package com.good.food.usecase.pedido;
+package com.good.food.core.usecase;
 
 import java.math.BigDecimal;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.domain.ItemPedido;
 import com.good.food.domain.Pedido;
 import com.good.food.domain.Produto;
+import com.good.food.gateways.ItemPedidoDatabaseGateway;
 import com.good.food.gateways.http.request.ItemPedidoRequest;
-import com.good.food.usecase.produto.BuscarProduto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class CadastrarItemPedido {
 
-  @Autowired
   private final BuscarProduto buscarProduto;
+  private final ItemPedidoDatabaseGateway itemPedidoDatabaseGateway;
 
-  protected ItemPedido execute(final Pedido pedido,
+  @Transactional
+  public ItemPedido execute(final Pedido pedido,
       final ItemPedidoRequest itemPedidoRequest) {
     final Produto produto = buscarProduto.execute(itemPedidoRequest.getProdutoUUID());
 
@@ -26,8 +27,6 @@ public class CadastrarItemPedido {
     itemPedido
         .setPreco(produto.getPreco().multiply(BigDecimal.valueOf(itemPedido.getQuantidade())));
     itemPedido.setPedido(pedido);
-    // cadastrarItemPedido.execute(itemPedido);
-    return itemPedido;
-
+    return itemPedidoDatabaseGateway.save(itemPedido);
   }
 }

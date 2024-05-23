@@ -1,4 +1,4 @@
-package com.good.food.usecase.pedido;
+package com.good.food.core.usecase;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

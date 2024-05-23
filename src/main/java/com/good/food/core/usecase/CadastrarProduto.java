@@ -1,4 +1,4 @@
-package com.good.food.usecase.produto;
+package com.good.food.core.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

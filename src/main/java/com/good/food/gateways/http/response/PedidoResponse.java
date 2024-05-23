@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoResponse {
-  
+
   private String id;
   private String cpf;
   private List<ItemPedidoResponse> itemPedido = new ArrayList<>();
@@ -24,6 +24,7 @@ public class PedidoResponse {
   private String status;
 
   public PedidoResponse(Pedido pedido) {
+    System.out.println(pedido.getItemPedido().size());
     this.id = pedido.getId().toString();
     this.cpf = Optional.ofNullable(pedido.getCliente()).map(cli -> cli.getCpf()).orElse(null);
     this.itemPedido = pedido.getItemPedido().stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
