@@ -2,13 +2,14 @@ package com.good.food.core.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.good.food.domain.Pedido;
-import com.good.food.gateways.PedidoDatabaseGateway;
+import com.good.food.core.domain.Pedido;
+import com.good.food.core.ports.inbound.AvancarStatusUseCase;
+import com.good.food.core.ports.outbound.PedidoDatabaseGateway;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class AvancarStatus {
+public class AvancarStatus implements AvancarStatusUseCase {
 
   @Autowired
   private final PedidoDatabaseGateway pedidoDatabaseGateway;

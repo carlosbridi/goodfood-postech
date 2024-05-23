@@ -5,13 +5,14 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.good.food.gateways.ProdutoDatabaseGateway;
-import com.good.food.gateways.http.response.ProdutoResponse;
+import com.good.food.adapter.inbound.controller.response.ProdutoResponse;
+import com.good.food.core.ports.inbound.BuscarProdutoPorCategoriaUseCase;
+import com.good.food.core.ports.outbound.ProdutoDatabaseGateway;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class BuscarProdutoPorCategoria {
+public class BuscarProdutoPorCategoria implements BuscarProdutoPorCategoriaUseCase {
 
   @Autowired
   private final ProdutoDatabaseGateway produtoDatabaseGateway; 

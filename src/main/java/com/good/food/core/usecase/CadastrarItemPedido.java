@@ -2,21 +2,24 @@ package com.good.food.core.usecase;
 
 import java.math.BigDecimal;
 import org.springframework.stereotype.Component;
-import com.good.food.domain.ItemPedido;
-import com.good.food.domain.Pedido;
-import com.good.food.domain.Produto;
-import com.good.food.gateways.ItemPedidoDatabaseGateway;
-import com.good.food.gateways.http.request.ItemPedidoRequest;
+import com.good.food.adapter.inbound.controller.request.ItemPedidoRequest;
+import com.good.food.core.domain.ItemPedido;
+import com.good.food.core.domain.Pedido;
+import com.good.food.core.domain.Produto;
+import com.good.food.core.ports.inbound.BuscarProdutoUseCase;
+import com.good.food.core.ports.inbound.CadastrarItemPedidoUseCase;
+import com.good.food.core.ports.outbound.ItemPedidoDatabaseGateway;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class CadastrarItemPedido {
+public class CadastrarItemPedido implements CadastrarItemPedidoUseCase {
 
-  private final BuscarProduto buscarProduto;
+  private final BuscarProdutoUseCase buscarProduto;
   private final ItemPedidoDatabaseGateway itemPedidoDatabaseGateway;
 
+  @Override
   @Transactional
   public ItemPedido execute(final Pedido pedido,
       final ItemPedidoRequest itemPedidoRequest) {
