@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.adapter.outbound.repository.PedidoRepository;
 import com.good.food.adapter.outbound.repository.entity.PedidoEntity;
 import com.good.food.core.domain.Pedido;
 import com.good.food.core.ports.outbound.PedidoDatabaseGateway;
 import com.good.food.domain.exceptions.NotFoundException;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class PedidoDatabaseGatewayImpl implements PedidoDatabaseGateway {
 
-  private final PedidoRepository pedidoRepository;
+  @Autowired
+  private PedidoRepository pedidoRepository;
 
   @Override
   public Pedido save(Pedido pedido) {

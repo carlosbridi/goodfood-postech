@@ -1,1 +1,1 @@
-CREATE DATABASE "public".food;
+CREATE DATABASE "food";

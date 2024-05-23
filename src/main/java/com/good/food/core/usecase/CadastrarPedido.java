@@ -1,5 +1,6 @@
 package com.good.food.core.usecase;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.good.food.adapter.inbound.controller.request.PedidoRequest;
 import com.good.food.core.domain.Pedido;
@@ -8,15 +9,17 @@ import com.good.food.core.ports.inbound.CadastrarItemPedidoUseCase;
 import com.good.food.core.ports.inbound.CadastrarPedidoUseCase;
 import com.good.food.core.ports.outbound.PedidoDatabaseGateway;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
+
 public class CadastrarPedido implements CadastrarPedidoUseCase {
 
-  private final PedidoDatabaseGateway pedidoDatabaseGateway;
-  private final BuscarClienteUseCase buscarCliente;
-  private final CadastrarItemPedidoUseCase cadastrarItemPedido;
+  @Autowired
+  private PedidoDatabaseGateway pedidoDatabaseGateway;
+  @Autowired
+  private BuscarClienteUseCase buscarCliente;
+  @Autowired
+  private CadastrarItemPedidoUseCase cadastrarItemPedido;
 
   @Override
   @Transactional
