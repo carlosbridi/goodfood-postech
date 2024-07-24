@@ -5,7 +5,7 @@ GoodFood é uma aplicação que provê um software de gerenciamento para uma lan
 
 
 # DDD
-O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjVKTxXwGc=/?share_link_id=520536120828).
+O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjVKTxXwGc=/?share_link_id=520536120828) ou na pasta /doc/ddd (baixa qualidade).
 
 # Tecnologias
 
