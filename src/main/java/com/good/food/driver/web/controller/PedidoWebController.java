@@ -2,6 +2,7 @@ package com.good.food.driver.web.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,6 +48,14 @@ public class PedidoWebController {
     @Operation(summary = "Listar os pedidos.", description = "Retorna todos os pedidos abertos.")
     public ResponseEntity<List<PedidoResponse>> retornarTodosPedidosAbertos() {
         return ResponseEntity.ok().body(pedidoController.retornarTodosPedidosAbertos());
+    }
+
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 404, message = "Not Found") })
+    @ResponseStatus(code = HttpStatus.OK)
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar pedido pelo ID.", description = "Retorna o pedido pelo ID.")
+    public ResponseEntity<PedidoResponse> retornarPedidosPorId(@PathVariable String id) {
+        return ResponseEntity.ok().body(pedidoController.retornarPedidosPorId(UUID.fromString(id)));
     }
 
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })

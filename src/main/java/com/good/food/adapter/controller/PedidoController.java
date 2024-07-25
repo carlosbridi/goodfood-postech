@@ -1,6 +1,7 @@
 package com.good.food.adapter.controller;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import com.good.food.adapter.presenter.PedidoPresenter;
 import com.good.food.application.exception.NotFoundException;
 import com.good.food.application.usecase.pedido.AdicionarAoPedidoUseCase;
 import com.good.food.application.usecase.pedido.AvancarStatusUseCase;
+import com.good.food.application.usecase.pedido.BuscarPedidoUseCase;
 import com.good.food.application.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
 import com.good.food.application.usecase.pedido.CadastrarPedidoUseCase;
 import com.good.food.application.usecase.pedido.RegredirStatusUseCase;
@@ -27,6 +29,7 @@ public class PedidoController {
     private final AdicionarAoPedidoUseCase adicionarAoPedido;
     private final RemoverDoPedidoUseCase removerDoPedido;
     private final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertos;
+    private final BuscarPedidoUseCase buscarPedidoUseCase;
     private final PedidoPresenter pedidoPresenter;
 
     public PedidoResponse regredirStatus(String id) {
@@ -39,6 +42,10 @@ public class PedidoController {
 
     public List<PedidoResponse> retornarTodosPedidosAbertos() {
         return buscarTodosPedidosAbertos.execute().stream().map(pedidoPresenter::toResponse).collect(Collectors.toList());
+    }
+
+    public PedidoResponse retornarPedidosPorId(UUID id) {
+        return pedidoPresenter.toResponse(buscarPedidoUseCase.execute(id));
     }
 
     public PedidoResponse cadastrarPedido(PedidoRequest pedidoRequest) {

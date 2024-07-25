@@ -96,6 +96,8 @@ Necessário preencher o **ID** do pedido
 ```
 ### get /pedido/
 Não necessário passar parâmetros para o swagger.
+### get /pedido/{id}
+ID do pedido.
 ### post /pedido
 Necessário preencher o **ID** do pedido
 ```
