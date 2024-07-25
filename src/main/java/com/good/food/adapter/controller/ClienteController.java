@@ -8,8 +8,8 @@ import com.good.food.adapter.controller.request.ClienteRequest;
 import com.good.food.adapter.controller.response.ClienteResponse;
 import com.good.food.adapter.presenter.ClientePresenter;
 import com.good.food.application.entity.Cliente;
-import com.good.food.application.usecase.BuscarClienteUseCase;
-import com.good.food.application.usecase.CadastrarClienteUseCase;
+import com.good.food.application.usecase.cliente.BuscarClienteUseCase;
+import com.good.food.application.usecase.cliente.CadastrarClienteUseCase;
 import lombok.RequiredArgsConstructor;
 
 @Component

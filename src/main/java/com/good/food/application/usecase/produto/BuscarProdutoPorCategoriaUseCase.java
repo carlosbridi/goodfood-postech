@@ -1,0 +1,10 @@
+package com.good.food.application.usecase.produto;
+
+import java.util.List;
+
+import com.good.food.application.entity.Produto;
+
+public interface BuscarProdutoPorCategoriaUseCase {
+
+    List<Produto> execute(String categoria);
+}

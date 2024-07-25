@@ -9,12 +9,12 @@ import com.good.food.adapter.controller.request.PedidoRequest;
 import com.good.food.adapter.controller.response.PedidoResponse;
 import com.good.food.adapter.presenter.PedidoPresenter;
 import com.good.food.application.exception.NotFoundException;
-import com.good.food.application.usecase.AdicionarAoPedidoUseCase;
-import com.good.food.application.usecase.AvancarStatusUseCase;
-import com.good.food.application.usecase.BuscarTodosPedidosAbertosUseCase;
-import com.good.food.application.usecase.CadastrarPedidoUseCase;
-import com.good.food.application.usecase.RegredirStatusUseCase;
-import com.good.food.application.usecase.RemoverDoPedidoUseCase;
+import com.good.food.application.usecase.pedido.AdicionarAoPedidoUseCase;
+import com.good.food.application.usecase.pedido.AvancarStatusUseCase;
+import com.good.food.application.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
+import com.good.food.application.usecase.pedido.CadastrarPedidoUseCase;
+import com.good.food.application.usecase.pedido.RegredirStatusUseCase;
+import com.good.food.application.usecase.pedido.RemoverDoPedidoUseCase;
 import lombok.RequiredArgsConstructor;
 
 @Component

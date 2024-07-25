@@ -10,10 +10,10 @@ import com.good.food.adapter.controller.request.ProdutoRequest;
 import com.good.food.adapter.controller.response.ProdutoResponse;
 import com.good.food.adapter.presenter.ProdutoPresenter;
 import com.good.food.application.entity.Produto;
-import com.good.food.application.usecase.CadastrarProdutoUseCase;
-import com.good.food.application.usecase.EditarProdutoUseCase;
-import com.good.food.application.usecase.RemoverProdutoUseCase;
-import com.good.food.application.usecase.impl.BuscarProdutoPorCategoria;
+import com.good.food.application.usecase.produto.BuscarProdutoPorCategoriaUseCase;
+import com.good.food.application.usecase.produto.CadastrarProdutoUseCase;
+import com.good.food.application.usecase.produto.EditarProdutoUseCase;
+import com.good.food.application.usecase.produto.RemoverProdutoUseCase;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -23,7 +23,7 @@ public class ProdutoController {
     private final CadastrarProdutoUseCase cadastrarProduto;
     private final RemoverProdutoUseCase removerProduto;
     private final EditarProdutoUseCase editarProduto;
-    private final BuscarProdutoPorCategoria buscarProdutoPorCategoria;
+    private final BuscarProdutoPorCategoriaUseCase buscarProdutoPorCategoria;
     private final ProdutoPresenter produtoPresenter;
 
     public ProdutoResponse cadastrarProduto(ProdutoRequest produtoRequest) {
