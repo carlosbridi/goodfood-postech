@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.good.food.application.entity.Pedido;
 import com.good.food.application.usecase.RegredirStatusUseCase;
 import com.good.food.adapter.gateway.PedidoDatabaseGateway;
+import com.good.food.driver.db.repository.entity.EStatusPedido;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -15,8 +16,9 @@ public class RegredirStatus implements RegredirStatusUseCase {
   private final PedidoDatabaseGateway pedidoDatabaseGateway;
 
   public Pedido execute(String pedidoId) {
-    Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
-//    pedidoAtual.setStatus(pedidoAtual.getStatus().previous());
+    final Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
+    final EStatusPedido statusPedido = EStatusPedido.getByString(pedidoAtual.getStatus());
+    pedidoAtual.setStatus(statusPedido.previous().name);
     return pedidoDatabaseGateway.save(pedidoAtual);
   }
 }
