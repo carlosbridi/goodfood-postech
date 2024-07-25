@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import com.good.food.application.entity.Pedido;
+import com.good.food.driver.db.repository.entity.EStatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,6 @@ public class PedidoResponse {
     this.itemPedido = pedido.getItemPedido().stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
     this.dataAtualizacao = pedido.getDataAtualizacao();
     this.dataCriacao = pedido.getDataCriacao();
-    this.status = pedido.getStatus().toString();
+    this.status = EStatusPedido.getByString(pedido.getStatus()).name;
   }
 }

@@ -54,7 +54,7 @@ public class PedidoEntity {
         .collect(Collectors.toList());
     dataAtualizacao = pedido.getDataAtualizacao();
     dataCriacao = pedido.getDataCriacao();
-    status = EStatusPedido.valueOf(pedido.getStatus());    
+    status = EStatusPedido.getByString(pedido.getStatus());    
   }
   
   public Pedido toDomain() {

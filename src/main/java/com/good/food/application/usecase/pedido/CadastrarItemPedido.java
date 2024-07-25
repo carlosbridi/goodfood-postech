@@ -28,7 +28,7 @@ class CadastrarItemPedido implements CadastrarItemPedidoUseCase {
     itemPedido.setProduto(produto);
     itemPedido
         .setPreco(produto.getPreco().multiply(BigDecimal.valueOf(itemPedido.getQuantidade())));
-    itemPedido.setPedido(pedido);
+    itemPedido.setPedido(pedido.getId());
     return itemPedidoDatabaseGateway.save(itemPedido);
   }
 }

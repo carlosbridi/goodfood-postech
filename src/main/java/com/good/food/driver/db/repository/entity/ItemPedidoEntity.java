@@ -27,9 +27,8 @@ public class ItemPedidoEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
-  @ManyToOne
-  @JoinColumn(name = "pedido_id")
-  private PedidoEntity pedido;
+  
+  private UUID pedido;
   @ManyToOne
   @JoinColumn(name = "produto_id")
   private ProdutoEntity produto;
@@ -49,7 +48,7 @@ public class ItemPedidoEntity {
   
   public ItemPedidoEntity(ItemPedido itemPedido) {
     id = itemPedido.getId();
-    pedido = new PedidoEntity(itemPedido.getPedido());
+    pedido = itemPedido.getPedido();
     produto = new ProdutoEntity(itemPedido.getProduto());
     observacoes = itemPedido.getObservacoes();
     quantidade = itemPedido.getQuantidade();
@@ -60,7 +59,7 @@ public class ItemPedidoEntity {
     return ItemPedido.builder()
         .id(id)
         .produto(produto.toDomain())
-//        .pedido(pedido.toDomain())
+        .pedido(pedido)
         .preco(preco)
         .quantidade(quantidade)
         .observacoes(observacoes)

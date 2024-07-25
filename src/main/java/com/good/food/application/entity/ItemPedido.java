@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ItemPedido {
 
   private UUID id;
-  private Pedido pedido;
+  private UUID pedido;
   private Produto produto;
   private String observacoes;
   private Integer quantidade;

@@ -17,7 +17,7 @@ class AvancarStatus implements AvancarStatusUseCase {
   public Pedido execute(String pedidoId) {
     final Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
     final EStatusPedido statusPedido = EStatusPedido.getByString(pedidoAtual.getStatus());
-    pedidoAtual.setStatus(statusPedido.next().name);
+    pedidoAtual.setStatus(statusPedido.next().toString());
     return pedidoDatabaseGateway.save(pedidoAtual);
   }
 }
