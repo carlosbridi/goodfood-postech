@@ -37,8 +37,8 @@ public class PedidoDatabaseGatewayImpl implements PedidoDatabaseGateway {
   }
 
   @Override
-  public List<Pedido> findAll() {
-    return CollectionUtils.emptyIfNull(pedidoRepository.findAll())
+  public List<Pedido> findAllByStatusNotFinalizadoOrderByStatusAndDate() {
+    return CollectionUtils.emptyIfNull(pedidoRepository.findAllByStatusNotFinalizadoOrderByStatusAndDate())
         .stream()
         .map(PedidoEntity::toDomain)
       .collect(Collectors.toList());

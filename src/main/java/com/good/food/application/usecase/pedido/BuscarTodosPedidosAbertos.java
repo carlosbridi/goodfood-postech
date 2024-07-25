@@ -15,6 +15,6 @@ class BuscarTodosPedidosAbertos implements BuscarTodosPedidosAbertosUseCase {
   private final PedidoDatabaseGateway pedidoDatabaseGateway;
 
   public List<Pedido> execute() {
-    return pedidoDatabaseGateway.findAll();
+    return pedidoDatabaseGateway.findAllByStatusNotFinalizadoOrderByStatusAndDate();
   }
 }

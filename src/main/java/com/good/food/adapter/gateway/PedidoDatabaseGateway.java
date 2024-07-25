@@ -12,6 +12,6 @@ public interface PedidoDatabaseGateway {
 
   Pedido findById(UUID uuid);
 
-  List<Pedido> findAll();
+  List<Pedido> findAllByStatusNotFinalizadoOrderByStatusAndDate();
   
 }

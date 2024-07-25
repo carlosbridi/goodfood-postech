@@ -7,13 +7,25 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.good.food.adapter.controller.PedidoController;
 import com.good.food.adapter.controller.request.PedidoRequest;
 import com.good.food.adapter.controller.response.PedidoResponse;
 import com.good.food.application.exception.NotFoundException;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +57,12 @@ public class PedidoWebController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })
     @ResponseStatus(code = HttpStatus.OK)
     @GetMapping()
-    @Operation(summary = "Listar os pedidos.", description = "Retorna todos os pedidos abertos.")
+    @Operation(summary = "Listar os pedidos.", description = """
+            Lista todos os pedidos, seguindo o critério:
+            1. Pronto > Em Preparação > Recebido;
+            2. Pedidos mais antigos primeiro e mais novos depois;
+            3. Pedidos com status Finalizado não devem aparecer na lista
+            """)
     public ResponseEntity<List<PedidoResponse>> retornarTodosPedidosAbertos() {
         return ResponseEntity.ok().body(pedidoController.retornarTodosPedidosAbertos());
     }
