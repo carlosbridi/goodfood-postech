@@ -53,7 +53,7 @@ public class PedidoWebController {
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping
     @ApiImplicitParams({ @ApiImplicitParam(name = "clienteCPF", value = "CPF do cliente", required = true, dataType = "string", paramType = "body"), @ApiImplicitParam(name = "produtosUUID", value = "Lista com uuid dos produtos a serem adicionados", required = true, dataType = "array", paramType = "body"), })
-    @Operation(summary = "Fake Checkout", description = "Cadastra o pedido na fila.")
+    @Operation(summary = "Checkout do pedido", description = "Cadastra o pedido na fila.")
     public ResponseEntity<PedidoResponse> cadastrarPedido(@RequestBody @Valid PedidoRequest pedidoRequest) {
         PedidoResponse pedidoResponse = pedidoController.cadastrarPedido(pedidoRequest);
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
