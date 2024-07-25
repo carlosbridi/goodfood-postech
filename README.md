@@ -114,7 +114,7 @@ Necessário preencher o **ID** do pedido
 Necessário apenas preencher o **ID** do pedido
 ### post /pedido/avancar-status/{id}
 Necessário apenas preencher o **ID** do pedido
-### delete /pedido/{id}/removerProdutos
+### delete /pedido/{id}
 Necessário preencher o **ID** do pedido
 ```
 {

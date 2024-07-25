@@ -70,7 +70,7 @@ public class PedidoWebController {
 
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })
     @ResponseStatus(code = HttpStatus.OK)
-    @DeleteMapping(path = "/{id}/removerProdutos")
+    @DeleteMapping(path = "/{id}")
     @ApiImplicitParams({ @ApiImplicitParam(name = "produtosUUID", value = "Lista com uuid dos produtos a serem removidos", required = true, dataType = "array", paramType = "body"), })
     public ResponseEntity<PedidoResponse> removerProdutos(@PathVariable String id, @RequestBody List<String> itemsToBeRemoved) throws NotFoundException {
         PedidoResponse pedidoResponse = pedidoController.removerProdutos(id, itemsToBeRemoved);
