@@ -38,6 +38,9 @@ O repositório Git contém um arquivo [docker-compose.yml](https://github.com/ca
 
 Rodar o comando `docker-compose up -d`, assim que o download das imagens do banco e da aplicação forem finalizadas, o projeto estará rodando na porta 8080, sendo possível acessar o swagger atrás do link: http://localhost:8080/swagger-ui/index.html.
 
+# Testes
+Para rodar os testes, basta rodar o comando `mvn test` na raiz do projeto.
+Atualmente os testes apenas validam as dependências entre os pacotes, garantindo a correta implementação da arquitetura clean architecture.
 
 # Endpoints
 Abaixo segue os endpoint junto com seus respectivos request body.

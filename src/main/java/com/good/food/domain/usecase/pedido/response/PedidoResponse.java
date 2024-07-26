@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import com.good.food.domain.entity.Pedido;
-import com.good.food.adapter.gateway.db.repository.entity.EStatusPedido;
+import com.good.food.domain.entity.EStatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

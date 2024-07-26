@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.good.food.domain.gateway.ProdutoDatabaseGateway;
 import com.good.food.adapter.gateway.db.repository.ProdutoRepository;
-import com.good.food.adapter.gateway.db.repository.entity.EProdutoCategoria;
+import com.good.food.domain.entity.EProdutoCategoria;
 import com.good.food.adapter.gateway.db.repository.entity.ProdutoEntity;
 import com.good.food.domain.entity.Produto;
 import com.good.food.domain.exception.NotFoundException;

@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-class BuscarProdutoPorCategoria implements BuscarProdutoPorCategoriaUseCase {
+class BuscarProdutoPorCategoriaUseCaseImpl implements BuscarProdutoPorCategoriaUseCase {
 
   private final ProdutoDatabaseGateway produtoDatabaseGateway;
   private final ProdutoPresenter produtoPresenter;

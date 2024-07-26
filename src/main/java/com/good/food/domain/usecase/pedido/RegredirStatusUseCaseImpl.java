@@ -2,7 +2,7 @@ package com.good.food.domain.usecase.pedido;
 
 import org.springframework.stereotype.Component;
 
-import com.good.food.adapter.gateway.db.repository.entity.EStatusPedido;
+import com.good.food.domain.entity.EStatusPedido;
 import com.good.food.domain.entity.Pedido;
 import com.good.food.domain.gateway.PedidoDatabaseGateway;
 import com.good.food.domain.presenter.PedidoPresenter;

@@ -2,6 +2,8 @@ package com.good.food.adapter.gateway.db.repository.entity;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+
+import com.good.food.domain.entity.EProdutoCategoria;
 import com.good.food.domain.entity.Produto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

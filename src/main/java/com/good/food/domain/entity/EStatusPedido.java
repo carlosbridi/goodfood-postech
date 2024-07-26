@@ -1,4 +1,4 @@
-package com.good.food.adapter.gateway.db.repository.entity;
+package com.good.food.domain.entity;
 
 import lombok.AllArgsConstructor;
 

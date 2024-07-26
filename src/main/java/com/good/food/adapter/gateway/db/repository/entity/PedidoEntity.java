@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
+
+import com.good.food.domain.entity.EStatusPedido;
 import com.good.food.domain.entity.Pedido;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
