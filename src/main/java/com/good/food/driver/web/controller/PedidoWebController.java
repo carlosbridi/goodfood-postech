@@ -7,11 +7,9 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,7 +20,6 @@ import com.good.food.adapter.controller.request.PedidoRequest;
 import com.good.food.adapter.controller.request.WebhookRequest;
 import com.good.food.adapter.controller.response.PedidoResponse;
 import com.good.food.adapter.controller.response.WebhookResponse;
-import com.good.food.application.exception.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -85,24 +82,6 @@ public class PedidoWebController {
     public ResponseEntity<PedidoResponse> cadastrarPedido(@RequestBody @Valid PedidoRequest pedidoRequest) {
         PedidoResponse pedidoResponse = pedidoController.cadastrarPedido(pedidoRequest);
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
-    }
-
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })
-    @ResponseStatus(code = HttpStatus.OK)
-    @PutMapping(path = "/{id}/adicionarProduto")
-    @ApiImplicitParams({ @ApiImplicitParam(name = "produtosUUID", value = "Lista com uuid dos produtos a serem adicionados", required = true, dataType = "array", paramType = "body"), })
-    public ResponseEntity<PedidoResponse> adicionarProduto(@PathVariable String id, @RequestBody @Valid PedidoRequest pedidoRequest) throws NotFoundException {
-        PedidoResponse pedidoResponse = pedidoController.adicionarProduto(id, pedidoRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(pedidoResponse);
-    }
-
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })
-    @ResponseStatus(code = HttpStatus.OK)
-    @DeleteMapping(path = "/{id}")
-    @ApiImplicitParams({ @ApiImplicitParam(name = "produtosUUID", value = "Lista com uuid dos produtos a serem removidos", required = true, dataType = "array", paramType = "body"), })
-    public ResponseEntity<PedidoResponse> removerProdutos(@PathVariable String id, @RequestBody List<String> itemsToBeRemoved) throws NotFoundException {
-        PedidoResponse pedidoResponse = pedidoController.removerProdutos(id, itemsToBeRemoved);
-        return ResponseEntity.status(HttpStatus.OK).body(pedidoResponse);
     }
 
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created") })
