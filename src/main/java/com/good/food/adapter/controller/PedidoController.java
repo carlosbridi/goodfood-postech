@@ -7,14 +7,19 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.good.food.adapter.controller.request.PedidoRequest;
+import com.good.food.adapter.controller.request.WebhookRequest;
 import com.good.food.adapter.controller.response.PedidoResponse;
+import com.good.food.adapter.controller.response.WebhookResponse;
 import com.good.food.adapter.presenter.PedidoPresenter;
+import com.good.food.adapter.presenter.WebhookPresenter;
+import com.good.food.application.entity.Webhook;
 import com.good.food.application.exception.NotFoundException;
 import com.good.food.application.usecase.pedido.AdicionarAoPedidoUseCase;
 import com.good.food.application.usecase.pedido.AvancarStatusUseCase;
 import com.good.food.application.usecase.pedido.BuscarPedidoUseCase;
 import com.good.food.application.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
 import com.good.food.application.usecase.pedido.CadastrarPedidoUseCase;
+import com.good.food.application.usecase.pedido.CadastrarWebhookUseCase;
 import com.good.food.application.usecase.pedido.RegredirStatusUseCase;
 import com.good.food.application.usecase.pedido.RemoverDoPedidoUseCase;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +36,8 @@ public class PedidoController {
     private final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertos;
     private final BuscarPedidoUseCase buscarPedidoUseCase;
     private final PedidoPresenter pedidoPresenter;
+    private final CadastrarWebhookUseCase cadastrarWebhook;
+    private final WebhookPresenter webhookPresenter;
 
     public PedidoResponse regredirStatus(String id) {
         return pedidoPresenter.toResponse(regredirStatus.execute(id));
@@ -58,5 +65,10 @@ public class PedidoController {
 
     public PedidoResponse removerProdutos(String id, List<String> itemsToBeRemoved) throws NotFoundException {
         return pedidoPresenter.toResponse(removerDoPedido.execute(id, itemsToBeRemoved));
+    }
+
+    public WebhookResponse cadastrarWebhook(WebhookRequest webhookRequest) {
+        Webhook webhook = cadastrarWebhook.execute(webhookRequest.toDomain(buscarPedidoUseCase.execute(webhookRequest.getPedidoId())));
+        return webhookPresenter.toResponse(webhook);
     }
 }

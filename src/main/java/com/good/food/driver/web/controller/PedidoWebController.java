@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.good.food.adapter.controller.PedidoController;
 import com.good.food.adapter.controller.request.PedidoRequest;
+import com.good.food.adapter.controller.request.WebhookRequest;
 import com.good.food.adapter.controller.response.PedidoResponse;
+import com.good.food.adapter.controller.response.WebhookResponse;
 import com.good.food.application.exception.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -101,5 +103,14 @@ public class PedidoWebController {
     public ResponseEntity<PedidoResponse> removerProdutos(@PathVariable String id, @RequestBody List<String> itemsToBeRemoved) throws NotFoundException {
         PedidoResponse pedidoResponse = pedidoController.removerProdutos(id, itemsToBeRemoved);
         return ResponseEntity.status(HttpStatus.OK).body(pedidoResponse);
+    }
+
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Created") })
+    @ResponseStatus(code = HttpStatus.CREATED)
+    @PostMapping(path = "/pagamento/webhook")
+    @Operation(summary = "Cadastrar webhook de pagamento do pedido", description = "Cadastrar webhook para receber confirmação de pagamento aprovado ou recusado.")
+    public ResponseEntity<WebhookResponse> cadastrarWebhook(@RequestBody WebhookRequest webhook) {
+        WebhookResponse createdWebhook = pedidoController.cadastrarWebhook(webhook);
+        return ResponseEntity.created(URI.create("/" + createdWebhook.getId())).body(createdWebhook);
     }
 }
