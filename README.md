@@ -15,7 +15,9 @@ O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjV
 
 # Arquitetura Clean Architecture
 
-![clean-arch](/doc/clean-architecture.png?raw=true)
+Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring-boot-clean-architecture)
+![clean-arch](/doc/clean-architecture.jpg?raw=true)
+
 
 # Tecnologias
 
