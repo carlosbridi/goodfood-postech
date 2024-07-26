@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CadastrarWebhook implements CadastrarWebhookUseCase {
+class CadastrarWebhook implements CadastrarWebhookUseCase {
 
   private final BuscarWebhookUseCase buscarWebhookUseCase;
   private final WebhookDatabaseGateway webhookDatabaseGateway;
