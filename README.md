@@ -38,6 +38,17 @@ O repositório Git contém um arquivo [docker-compose.yml](https://github.com/ca
 
 Rodar o comando `docker-compose up -d`, assim que o download das imagens do banco e da aplicação forem finalizadas, o projeto estará rodando na porta 8080, sendo possível acessar o swagger atrás do link: http://localhost:8080/swagger-ui/index.html.
 
+# Kubernetes 
+
+Arquivos do K8S está na pasta "k8s".
+ * **HPA** - hpa-goodfood-postech.yaml
+ * **Deployment** - pod-goodfood-postech.yaml
+ * **SVC Cluster IP DB** - svc-cluster-ip-postgres.yaml
+ * **SVC DB** - svc-postgres.yaml
+ * **LoadBalancer** - svc-goodfood-postech-loadbalancer.yaml
+ 
+Para executar o projeto em um cluster, basta executar todos os arquivos acima com o comando `kubectl apply -f .`, obter o IP a partir do `kubectl get svc` e acessar a URL `http:\\<ip>/swagger/index.html`
+
 # Testes
 Para rodar os testes, basta rodar o comando `mvn test` na raiz do projeto.
 Atualmente os testes apenas validam as dependências entre os pacotes, garantindo a correta implementação da arquitetura clean architecture.
@@ -150,9 +161,7 @@ Apenas precisa preencher o CPF
 
 # Equipe
 Carlos Bridi - RM355971
-
 Nicollas Eissemann - RM355576
-
 Daniel R. Martini - RM355054
-
 Roberto Debarba - RM355038
+
