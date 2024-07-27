@@ -3,6 +3,8 @@
 
 GoodFood é uma aplicação que provê um software de gerenciamento para uma lanchonete em expansão.
 
+[![Java CI with Maven](https://github.com/carlosbridi/goodfood-postech/actions/workflows/maven.yml/badge.svg)](https://github.com/carlosbridi/goodfood-postech/actions/workflows/maven.yml)
+
 # Desafio
 
 As descrições dos desafios de cada fase estão na pasta /doc/tech-challenge.
