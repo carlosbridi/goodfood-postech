@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.good.food.adapter.gateway.db.repository.entity.ClienteEntity;
+import com.good.food.domain.Cliente;
+import com.good.food.adapter.ClienteDatabaseGateway;
 import com.good.food.adapter.gateway.db.repository.ClienteRepository;
-import com.good.food.domain.entity.Cliente;
-import com.good.food.usecase.gateway.ClienteDatabaseGateway;
 
 @Component
 public class ClienteDatabaseGatewayImpl implements ClienteDatabaseGateway {

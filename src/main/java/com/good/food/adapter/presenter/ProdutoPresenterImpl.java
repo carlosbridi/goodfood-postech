@@ -1,10 +1,9 @@
 package com.good.food.adapter.presenter;
 
 import org.springframework.stereotype.Component;
-
-import com.good.food.usecase.usecase.produto.response.ProdutoResponse;
-import com.good.food.domain.entity.Produto;
-import com.good.food.usecase.presenter.ProdutoPresenter;
+import com.good.food.adapter.ProdutoPresenter;
+import com.good.food.adapter.controller.web.response.produto.ProdutoResponse;
+import com.good.food.domain.Produto;
 import lombok.RequiredArgsConstructor;
 
 @Component

@@ -2,7 +2,7 @@ package com.good.food.adapter.gateway.db.repository.entity;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-import com.good.food.domain.entity.ItemPedido;
+import com.good.food.domain.ItemPedido;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

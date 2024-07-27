@@ -1,7 +1,7 @@
 package com.good.food.adapter.gateway.db.repository.entity;
 
 import java.util.UUID;
-import com.good.food.domain.entity.Cliente;
+import com.good.food.domain.Cliente;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

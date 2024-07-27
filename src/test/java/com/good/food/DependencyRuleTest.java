@@ -17,7 +17,7 @@ class DependencyRuleTest {
     private static final String USECASE_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*";
     private static final String USECASE_REQUEST_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*.request";
     private static final String USECASE_RESPONSE_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*.response";
-    private static final String GATEWAYS_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".gateway";
+    private static final String GATEWAYS_PACKAGE = ROOT_PACKAGE + "." + ADAPTER_LAYER;
     private static final String PRESENTERS_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".presenter";
 
     @Test
