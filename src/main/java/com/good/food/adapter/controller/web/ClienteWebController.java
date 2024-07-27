@@ -19,9 +19,14 @@ import com.good.food.usecase.usecase.cliente.CadastrarClienteUseCase;
 import com.good.food.usecase.usecase.cliente.request.ClienteRequest;
 import com.good.food.usecase.usecase.cliente.response.ClienteResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,21 +38,54 @@ public class ClienteWebController {
     private final BuscarClienteUseCase buscarClienteUseCase;
     private final CadastrarClienteUseCase cadastrarClienteUseCase;
 
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 201, message = "Created")
+    })
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping
-    @Operation(summary = "Cadastro do Cliente", description = "Cadastra o cliente no banco.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "nome", value = "Nome do cliente", required = true, dataType = "string", paramType = "body"),
+            @ApiImplicitParam(name = "cpf", value = "CPF do cliente", required = true, dataType = "string", paramType = "body"),
+    })
+    @Operation(
+            summary = "Cadastro do Cliente",
+            description = "Cadastra o cliente",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Cliente a ser cadastrado",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ClienteRequest.class),
+                            examples = @ExampleObject(
+                                    value = "{ \"nome\": \"João Silva\", \"cpf\": \"123.456.789-00\" }"
+                            )
+                    )
+            )
+    )
     public ResponseEntity<ClienteResponse> cadastrarCliente(@RequestBody ClienteRequest clienteRequest) {
         final ClienteResponse clienteResponse = cadastrarClienteUseCase.execute(clienteRequest);
         return ResponseEntity.created(URI.create("/" + clienteResponse.getUuid())).body(clienteResponse);
     }
 
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 404, message = "Not found")
+    })
     @ResponseStatus(code = HttpStatus.OK)
     @GetMapping(path = "/buscar-cpf/{cpf}")
-    @Operation(summary = "Identificação do Cliente via CPF", description = "Procura o cliente pelo CPF")
+    @Operation(
+            summary = "Identificação do Cliente via CPF",
+            description = "Procura o cliente pelo CPF",
+            parameters = @io.swagger.v3.oas.annotations.Parameter(
+                    name = "cpf",
+                    description = "CPF do cliente",
+                    required = true,
+                    example = "123.456.789-00"
+            )
+    )
     public ResponseEntity<ClienteResponse> findByCpf(@PathVariable String cpf) {
-        return ResponseEntity.ok().body(buscarClienteUseCase.execute(cpf) //
+        return ResponseEntity.ok().body(buscarClienteUseCase.execute(cpf)
                                                 .orElseThrow(() -> new NotFoundException("Cliente não encontrado com o CPF informado")));
     }
 }
