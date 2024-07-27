@@ -3,9 +3,21 @@
 
 GoodFood é uma aplicação que provê um software de gerenciamento para uma lanchonete em expansão.
 
+# Desafio
+
+As descrições dos desafios de cada fase estão na pasta /doc/tech-challenge.
+As resoluções por fase estão nas tags do git fase1-*, fase2-*, etc.
+
 
 # DDD
 O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjVKTxXwGc=/?share_link_id=520536120828) ou na pasta /doc/ddd (baixa qualidade).
+
+
+# Arquitetura Clean Architecture
+
+Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring-boot-clean-architecture)
+![clean-arch](/doc/clean-architecture.jpg?raw=true)
+
 
 # Tecnologias
 
@@ -26,6 +38,9 @@ O repositório Git contém um arquivo [docker-compose.yml](https://github.com/ca
 
 Rodar o comando `docker-compose up -d`, assim que o download das imagens do banco e da aplicação forem finalizadas, o projeto estará rodando na porta 8080, sendo possível acessar o swagger atrás do link: http://localhost:8080/swagger-ui/index.html.
 
+# Testes
+Para rodar os testes, basta rodar o comando `mvn test` na raiz do projeto.
+Atualmente os testes apenas validam as dependências entre os pacotes, garantindo a correta implementação da arquitetura clean architecture.
 
 # Endpoints
 Abaixo segue os endpoint junto com seus respectivos request body.
@@ -86,6 +101,8 @@ Necessário preencher o **ID** do pedido
 ```
 ### get /pedido/
 Não necessário passar parâmetros para o swagger.
+### get /pedido/{id}
+ID do pedido.
 ### post /pedido
 Necessário preencher o **ID** do pedido
 ```
@@ -104,7 +121,7 @@ Necessário preencher o **ID** do pedido
 Necessário apenas preencher o **ID** do pedido
 ### post /pedido/avancar-status/{id}
 Necessário apenas preencher o **ID** do pedido
-### delete /pedido/{id}/removerProdutos
+### delete /pedido/{id}
 Necessário preencher o **ID** do pedido
 ```
 {
