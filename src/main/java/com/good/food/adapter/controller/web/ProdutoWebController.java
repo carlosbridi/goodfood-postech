@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.good.food.domain.usecase.produto.BuscarProdutoPorCategoriaUseCase;
-import com.good.food.domain.usecase.produto.CadastrarProdutoUseCase;
-import com.good.food.domain.usecase.produto.EditarProdutoUseCase;
-import com.good.food.domain.usecase.produto.RemoverProdutoUseCase;
-import com.good.food.domain.usecase.produto.request.ProdutoRequest;
-import com.good.food.domain.usecase.produto.response.ProdutoResponse;
+import com.good.food.usecase.usecase.produto.BuscarProdutoPorCategoriaUseCase;
+import com.good.food.usecase.usecase.produto.CadastrarProdutoUseCase;
+import com.good.food.usecase.usecase.produto.EditarProdutoUseCase;
+import com.good.food.usecase.usecase.produto.RemoverProdutoUseCase;
+import com.good.food.usecase.usecase.produto.request.ProdutoRequest;
+import com.good.food.usecase.usecase.produto.response.ProdutoResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

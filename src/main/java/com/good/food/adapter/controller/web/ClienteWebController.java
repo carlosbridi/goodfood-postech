@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.good.food.domain.exception.NotFoundException;
-import com.good.food.domain.usecase.cliente.BuscarClienteUseCase;
-import com.good.food.domain.usecase.cliente.CadastrarClienteUseCase;
-import com.good.food.domain.usecase.cliente.request.ClienteRequest;
-import com.good.food.domain.usecase.cliente.response.ClienteResponse;
+import com.good.food.usecase.exception.NotFoundException;
+import com.good.food.usecase.usecase.cliente.BuscarClienteUseCase;
+import com.good.food.usecase.usecase.cliente.CadastrarClienteUseCase;
+import com.good.food.usecase.usecase.cliente.request.ClienteRequest;
+import com.good.food.usecase.usecase.cliente.response.ClienteResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

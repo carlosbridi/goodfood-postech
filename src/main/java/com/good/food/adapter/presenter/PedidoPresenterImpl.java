@@ -2,9 +2,9 @@ package com.good.food.adapter.presenter;
 
 import org.springframework.stereotype.Component;
 
-import com.good.food.domain.usecase.pedido.response.PedidoResponse;
+import com.good.food.usecase.usecase.pedido.response.PedidoResponse;
 import com.good.food.domain.entity.Pedido;
-import com.good.food.domain.presenter.PedidoPresenter;
+import com.good.food.usecase.presenter.PedidoPresenter;
 import lombok.RequiredArgsConstructor;
 
 @Component

@@ -19,6 +19,15 @@ O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjV
 
 Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring-boot-clean-architecture)
 ![clean-arch](/doc/clean-architecture.jpg?raw=true)
+- **Enterprise Business Rules**:
+  - package `com.good.food.domain`
+- **Application Business Rules**:
+  - package `com.good.food.usecase`
+- **Interface Adapters**:
+  - package `com.good.food.adapter`
+- **Frameworks & Drivers**:
+  - PostgresSQL
+  - Spring MVC
 
 
 # Tecnologias

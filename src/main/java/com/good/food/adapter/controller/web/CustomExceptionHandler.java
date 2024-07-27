@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.good.food.domain.exception.BussinessValidationException;
-import com.good.food.domain.exception.NotFoundException;
+import com.good.food.usecase.exception.BussinessValidationException;
+import com.good.food.usecase.exception.NotFoundException;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {

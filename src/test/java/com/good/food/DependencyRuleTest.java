@@ -11,20 +11,26 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 class DependencyRuleTest {
 
     private static final String ROOT_PACKAGE = "com.good.food";
-    private static final String DOMAIN_PACKAGE = "domain";
-    private static final String ADAPTER_PACKAGE = "adapter";
-    private static final String DOMAIN_USECASE_PACKAGE = ROOT_PACKAGE + "." + DOMAIN_PACKAGE + ".usecase.*";
-    private static final String DOMAIN_REQUEST_PACKAGE = ROOT_PACKAGE + "." + DOMAIN_PACKAGE + ".usecase.*.request";
-    private static final String DOMAIN_RESPONSE_PACKAGE = ROOT_PACKAGE + "." + DOMAIN_PACKAGE + ".usecase.*.response";
-    private static final String DOMAIN_GATEWAYS_PACKAGE = ROOT_PACKAGE + "." + DOMAIN_PACKAGE + ".gateway";
-    private static final String DOMAIN_PRESENTERS_PACKAGE = ROOT_PACKAGE + "." + DOMAIN_PACKAGE + ".presenter";
+    private static final String DOMAIN_LAYER = "domain";
+    private static final String USECASE_LAYER = "usecase";
+    private static final String ADAPTER_LAYER = "adapter";
+    private static final String USECASE_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*";
+    private static final String USECASE_REQUEST_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*.request";
+    private static final String USECASE_RESPONSE_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*.response";
+    private static final String GATEWAYS_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".gateway";
+    private static final String PRESENTERS_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".presenter";
 
     @Test
     void checkDependencyRule() {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        checkNoDependencyFromTo(DOMAIN_PACKAGE, ADAPTER_PACKAGE, classesToCheck);
+        // Adapter não deve depender de camadas externas
+        checkNoDependencyFromTo(DOMAIN_LAYER, USECASE_LAYER, classesToCheck);
+        checkNoDependencyFromTo(DOMAIN_LAYER, ADAPTER_LAYER, classesToCheck);
+
+        // Usecase não deve depender de camadas externas
+        checkNoDependencyFromTo(USECASE_LAYER, ADAPTER_LAYER, classesToCheck);
     }
 
     @Test
@@ -32,7 +38,7 @@ class DependencyRuleTest {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        classes().that().resideInAPackage(DOMAIN_USECASE_PACKAGE) //
+        classes().that().resideInAPackage(USECASE_PACKAGE) //
                 .and().areNotInterfaces() //
                 .should().haveSimpleNameEndingWith("UseCaseImpl") //
                 .check(classesToCheck);
@@ -43,7 +49,7 @@ class DependencyRuleTest {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        classes().that().resideInAPackage(DOMAIN_USECASE_PACKAGE) //
+        classes().that().resideInAPackage(USECASE_PACKAGE) //
                 .and().areInterfaces() //
                 .should().haveSimpleNameEndingWith("UseCase") //
                 .check(classesToCheck);
@@ -54,7 +60,7 @@ class DependencyRuleTest {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        classes().that().resideInAPackage(DOMAIN_REQUEST_PACKAGE) //
+        classes().that().resideInAPackage(USECASE_REQUEST_PACKAGE) //
                 .should().haveSimpleNameEndingWith("Request") //
                 .check(classesToCheck);
     }
@@ -64,7 +70,7 @@ class DependencyRuleTest {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        classes().that().resideInAPackage(DOMAIN_RESPONSE_PACKAGE) //
+        classes().that().resideInAPackage(USECASE_RESPONSE_PACKAGE) //
                 .should().haveSimpleNameEndingWith("Response") //
                 .check(classesToCheck);
     }
@@ -74,7 +80,7 @@ class DependencyRuleTest {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        classes().that().resideInAPackage(DOMAIN_GATEWAYS_PACKAGE) //
+        classes().that().resideInAPackage(GATEWAYS_PACKAGE) //
                 .should().haveSimpleNameEndingWith("Gateway") //
                 .check(classesToCheck);
     }
@@ -84,7 +90,7 @@ class DependencyRuleTest {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
-        classes().that().resideInAPackage(DOMAIN_PRESENTERS_PACKAGE) //
+        classes().that().resideInAPackage(PRESENTERS_PACKAGE) //
                 .should().haveSimpleNameEndingWith("Presenter") //
                 .check(classesToCheck);
     }
