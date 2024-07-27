@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -19,12 +20,10 @@ import com.good.food.domain.usecase.pedido.AvancarStatusUseCase;
 import com.good.food.domain.usecase.pedido.BuscarPedidoUseCase;
 import com.good.food.domain.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
 import com.good.food.domain.usecase.pedido.CadastrarPedidoUseCase;
-import com.good.food.domain.usecase.pedido.CadastrarWebhookUseCase;
 import com.good.food.domain.usecase.pedido.RegredirStatusUseCase;
+import com.good.food.domain.usecase.pedido.WebhookPedidoUseCase;
 import com.good.food.domain.usecase.pedido.request.PedidoRequest;
-import com.good.food.domain.usecase.pedido.request.WebhookRequest;
 import com.good.food.domain.usecase.pedido.response.PedidoResponse;
-import com.good.food.domain.usecase.pedido.response.WebhookResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -45,7 +44,7 @@ public class PedidoWebController {
     private final RegredirStatusUseCase regredirStatus;
     private final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertos;
     private final BuscarPedidoUseCase buscarPedidoUseCase;
-    private final CadastrarWebhookUseCase cadastrarWebhook;
+    private final WebhookPedidoUseCase webhookPedidoUseCase;
 
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 201, message = "Created") })
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -94,12 +93,11 @@ public class PedidoWebController {
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
     }
 
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Created") })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok") })
     @ResponseStatus(code = HttpStatus.CREATED)
-    @PostMapping(path = "/pagamento/webhook")
-    @Operation(summary = "Cadastrar webhook de pagamento do pedido", description = "Cadastrar webhook para receber confirmação de pagamento aprovado ou recusado.")
-    public ResponseEntity<WebhookResponse> cadastrarWebhook(@RequestBody WebhookRequest webhook) {
-        WebhookResponse createdWebhook = cadastrarWebhook.execute(webhook);
-        return ResponseEntity.created(URI.create("/" + createdWebhook.getId())).body(createdWebhook);
+    @PutMapping(path = "/pagamento/webhook/{idPedido}")
+    @Operation(summary = "Atualiza o status do pagamento do pedido para PAGO", description = "Atualiza o status do pagamento do pedido para PAGO")
+    public ResponseEntity<PedidoResponse> webhookPedido(@PathVariable String idPedido) {
+        return ResponseEntity.ok().body(webhookPedidoUseCase.execute(idPedido));
     }
 }

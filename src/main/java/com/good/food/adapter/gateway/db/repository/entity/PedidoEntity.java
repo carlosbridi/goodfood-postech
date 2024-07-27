@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.good.food.domain.entity.EStatusPagamentoPedido;
 import com.good.food.domain.entity.EStatusPedido;
 import com.good.food.domain.entity.Pedido;
 import jakarta.persistence.CascadeType;
@@ -46,6 +48,7 @@ public class PedidoEntity {
   private LocalDate dataCriacao;
   
   private EStatusPedido status;
+  private EStatusPagamentoPedido statusPagamento;
 
   public PedidoEntity(Pedido pedido) {
     id = pedido.getId();
@@ -56,7 +59,8 @@ public class PedidoEntity {
         .collect(Collectors.toList());
     dataAtualizacao = pedido.getDataAtualizacao();
     dataCriacao = pedido.getDataCriacao();
-    status = EStatusPedido.getByString(pedido.getStatus());    
+    status = pedido.getStatus();
+    statusPagamento = pedido.getStatusPagamento();
   }
   
   public Pedido toDomain() {
@@ -69,7 +73,8 @@ public class PedidoEntity {
               .collect(Collectors.toList()))        
         .dataAtualizacao(dataAtualizacao)
         .dataCriacao(dataCriacao)
-        .status(status.toString())
+        .status(status)
+        .statusPagamento(statusPagamento)
       .build();
   }
   

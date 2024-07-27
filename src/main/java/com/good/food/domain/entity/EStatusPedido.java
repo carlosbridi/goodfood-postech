@@ -12,14 +12,6 @@ public enum EStatusPedido {
   
   public String name;
   
-  public static EStatusPedido getByString(final String status) {
-    try {
-      return EStatusPedido.valueOf(status);
-    } catch (Exception e) {
-      throw new IllegalArgumentException("Tipo incompatível, tipos disponíveis: Recebido, Em Preparação, Pronto e Finalizado");
-    }
-  }
-  
   private static final EStatusPedido[] vals = values();
 
   public EStatusPedido next(){

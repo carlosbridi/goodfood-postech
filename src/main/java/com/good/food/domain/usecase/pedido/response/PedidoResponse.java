@@ -1,13 +1,13 @@
 package com.good.food.domain.usecase.pedido.response;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.good.food.domain.entity.EStatusPagamentoPedido;
 import com.good.food.domain.entity.Pedido;
-import com.good.food.domain.entity.EStatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +23,7 @@ public class PedidoResponse {
   private LocalDate dataAtualizacao;
   private LocalDate dataCriacao;
   private String status;
+  private EStatusPagamentoPedido statusPagamento;
 
   public PedidoResponse(Pedido pedido) {
     this.id = pedido.getId().toString();
@@ -30,6 +31,7 @@ public class PedidoResponse {
     this.itemPedido = pedido.getItemPedido().stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
     this.dataAtualizacao = pedido.getDataAtualizacao();
     this.dataCriacao = pedido.getDataCriacao();
-    this.status = EStatusPedido.getByString(pedido.getStatus()).name;
+    this.status = pedido.getStatus().name;
+    this.statusPagamento = pedido.getStatusPagamento();
   }
 }

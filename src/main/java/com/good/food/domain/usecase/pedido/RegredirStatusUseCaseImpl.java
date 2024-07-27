@@ -18,8 +18,8 @@ class RegredirStatusUseCaseImpl implements RegredirStatusUseCase {
 
   public PedidoResponse execute(String pedidoId) {
     final Pedido pedidoAtual = pedidoDatabaseGateway.findById(pedidoId);
-    final EStatusPedido statusPedido = EStatusPedido.getByString(pedidoAtual.getStatus());
-    pedidoAtual.setStatus(statusPedido.previous().toString());
+    final EStatusPedido statusPedido = pedidoAtual.getStatus();
+    pedidoAtual.setStatus(statusPedido.previous());
     return pedidoPresenter.toResponse(pedidoDatabaseGateway.save(pedidoAtual));
   }
 }
