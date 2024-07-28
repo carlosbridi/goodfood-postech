@@ -1,4 +1,4 @@
-package com.good.food.adapter;
+package com.good.food.adapter.gateway;
 
 import com.good.food.domain.ItemPedido;
 

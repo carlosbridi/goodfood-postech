@@ -1,4 +1,4 @@
-package com.good.food.adapter;
+package com.good.food.adapter.gateway;
 
 import java.util.List;
 import java.util.UUID;

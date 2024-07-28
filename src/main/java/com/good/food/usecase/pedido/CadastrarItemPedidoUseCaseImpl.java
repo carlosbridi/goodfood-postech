@@ -2,7 +2,7 @@ package com.good.food.usecase.pedido;
 
 import java.math.BigDecimal;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ItemPedidoDatabaseGateway;
+import com.good.food.adapter.gateway.ItemPedidoDatabaseGateway;
 import com.good.food.domain.ItemPedido;
 import com.good.food.domain.Pedido;
 import com.good.food.domain.Produto;

@@ -1,7 +1,7 @@
 package com.good.food.usecase.cliente;
 
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ClienteDatabaseGateway;
+import com.good.food.adapter.gateway.ClienteDatabaseGateway;
 import com.good.food.domain.Cliente;
 import com.good.food.exception.BussinessValidationException;
 import lombok.RequiredArgsConstructor;

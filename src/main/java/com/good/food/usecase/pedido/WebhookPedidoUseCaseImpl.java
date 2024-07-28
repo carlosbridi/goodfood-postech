@@ -1,7 +1,7 @@
 package com.good.food.usecase.pedido;
 
 import org.springframework.stereotype.Service;
-import com.good.food.adapter.PedidoDatabaseGateway;
+import com.good.food.adapter.gateway.PedidoDatabaseGateway;
 import com.good.food.domain.EStatusPagamentoPedido;
 import com.good.food.domain.Pedido;
 import lombok.RequiredArgsConstructor;

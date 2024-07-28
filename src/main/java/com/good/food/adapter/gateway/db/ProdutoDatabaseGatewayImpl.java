@@ -5,7 +5,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ProdutoDatabaseGateway;
+import com.good.food.adapter.gateway.ProdutoDatabaseGateway;
 import com.good.food.adapter.gateway.db.repository.ProdutoRepository;
 import com.good.food.adapter.gateway.db.repository.entity.ProdutoEntity;
 import com.good.food.domain.EProdutoCategoria;

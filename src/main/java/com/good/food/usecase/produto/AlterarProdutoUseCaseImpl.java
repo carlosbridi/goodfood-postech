@@ -2,7 +2,7 @@ package com.good.food.usecase.produto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ProdutoDatabaseGateway;
+import com.good.food.adapter.gateway.ProdutoDatabaseGateway;
 import com.good.food.domain.Produto;
 import lombok.RequiredArgsConstructor;
 

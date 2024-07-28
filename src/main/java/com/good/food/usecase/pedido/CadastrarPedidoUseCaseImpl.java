@@ -2,8 +2,8 @@ package com.good.food.usecase.pedido;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ClienteDatabaseGateway;
-import com.good.food.adapter.PedidoDatabaseGateway;
+import com.good.food.adapter.gateway.ClienteDatabaseGateway;
+import com.good.food.adapter.gateway.PedidoDatabaseGateway;
 import com.good.food.domain.EStatusPagamentoPedido;
 import com.good.food.domain.EStatusPedido;
 import com.good.food.domain.ItemPedido;

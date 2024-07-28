@@ -3,7 +3,7 @@ package com.good.food.usecase.produto;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ProdutoDatabaseGateway;
+import com.good.food.adapter.gateway.ProdutoDatabaseGateway;
 import lombok.RequiredArgsConstructor;
 
 @Component

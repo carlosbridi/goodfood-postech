@@ -2,7 +2,7 @@ package com.good.food.usecase.cliente;
 
 import java.util.Optional;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.ClienteDatabaseGateway;
+import com.good.food.adapter.gateway.ClienteDatabaseGateway;
 import com.good.food.domain.Cliente;
 import lombok.RequiredArgsConstructor;
 

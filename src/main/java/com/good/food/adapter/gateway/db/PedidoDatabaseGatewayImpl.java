@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.good.food.adapter.PedidoDatabaseGateway;
+import com.good.food.adapter.gateway.PedidoDatabaseGateway;
 import com.good.food.adapter.gateway.db.repository.PedidoRepository;
 import com.good.food.adapter.gateway.db.repository.entity.PedidoEntity;
 import com.good.food.domain.Pedido;
