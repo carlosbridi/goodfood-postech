@@ -5,15 +5,16 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import com.good.food.adapter.PedidoPresenter;
+import com.good.food.adapter.controller.web.request.pedido.ItemPedidoRequest;
 import com.good.food.adapter.controller.web.request.pedido.PedidoRequest;
 import com.good.food.adapter.controller.web.response.pedido.PedidoResponse;
-import com.good.food.adapter.gateway.db.repository.PedidoRepository;
 import com.good.food.usecase.pedido.AvancarStatusUseCase;
 import com.good.food.usecase.pedido.BuscarPedidoUseCase;
 import com.good.food.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
 import com.good.food.usecase.pedido.CadastrarPedidoUseCase;
 import com.good.food.usecase.pedido.RegredirStatusUseCase;
 import com.good.food.usecase.pedido.WebhookPedidoUseCase;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -48,13 +49,13 @@ public class PedidoController {
   }
   
   public PedidoResponse cadastrarPedido(PedidoRequest pedidoRequest) {
-//    cadastrarPedido.execute(pedidoRequest);
-    return null;
+    return pedidoPresenter.toResponse(cadastrarPedido.execute(pedidoRequest.toDomain(), 
+        pedidoRequest.getItemPedidos().stream().map(ItemPedidoRequest::toDomain).collect(Collectors.toList()),
+        pedidoRequest.getClienteCPF()));
   }
   
   public PedidoResponse webhookPedido(String idPedido) {
     return pedidoPresenter.toResponse(webhookPedidoUseCase.execute(idPedido));
   }
-  
   
 }

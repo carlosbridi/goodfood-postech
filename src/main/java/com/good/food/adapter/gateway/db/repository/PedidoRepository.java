@@ -12,12 +12,12 @@ public interface PedidoRepository extends JpaRepository<PedidoEntity, UUID> {
 
     @Query("""
             SELECT p FROM PedidoEntity p 
-            WHERE p.status != com.good.food.domain.entity.EStatusPedido.FINALIZADO 
+            WHERE p.status != com.good.food.domain.EStatusPedido.FINALIZADO 
             ORDER BY 
             CASE p.status 
-            WHEN com.good.food.domain.entity.EStatusPedido.PRONTO THEN 1 
-            WHEN com.good.food.domain.entity.EStatusPedido.EM_PREPARACAO THEN 2 
-            WHEN com.good.food.domain.entity.EStatusPedido.RECEBIDO THEN 3 
+            WHEN com.good.food.domain.EStatusPedido.PRONTO THEN 1 
+            WHEN com.good.food.domain.EStatusPedido.EM_PREPARACAO THEN 2 
+            WHEN com.good.food.domain.EStatusPedido.RECEBIDO THEN 3 
             ELSE 4 END, p.dataCriacao ASC
             """)
     List<PedidoEntity> findAllByStatusNotFinalizadoOrderByStatusAndDate();

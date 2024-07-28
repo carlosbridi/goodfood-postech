@@ -13,6 +13,7 @@ public class ItemPedido {
 
   private UUID id;
   private UUID pedido;
+  private String produtoId;
   private Produto produto;
   private String observacoes;
   private Integer quantidade;

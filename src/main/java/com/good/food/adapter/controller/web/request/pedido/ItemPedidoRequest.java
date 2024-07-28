@@ -15,6 +15,6 @@ public class ItemPedidoRequest {
   private int quantidade;
 
   public ItemPedido toDomain() {
-    return ItemPedido.builder().observacoes(observacoes).quantidade(quantidade).build();
+    return ItemPedido.builder().produtoId(produtoUUID).observacoes(observacoes).quantidade(quantidade).build();
   }
 }
