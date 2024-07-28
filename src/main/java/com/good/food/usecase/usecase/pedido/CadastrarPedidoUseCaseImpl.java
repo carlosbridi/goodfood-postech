@@ -6,6 +6,7 @@ import com.good.food.domain.entity.EStatusPagamentoPedido;
 import com.good.food.domain.entity.EStatusPedido;
 import com.good.food.domain.entity.Pedido;
 import com.good.food.usecase.gateway.ClienteDatabaseGateway;
+import com.good.food.usecase.gateway.MercadoPagoGateway;
 import com.good.food.usecase.gateway.PedidoDatabaseGateway;
 import com.good.food.usecase.presenter.PedidoPresenter;
 import com.good.food.usecase.usecase.pedido.request.PedidoRequest;
@@ -21,7 +22,8 @@ class CadastrarPedidoUseCaseImpl implements CadastrarPedidoUseCase {
     private final CadastrarItemPedidoUseCase cadastrarItemPedido;
     private final PedidoPresenter pedidoPresenter;
     private final ClienteDatabaseGateway clienteDatabaseGateway;
-
+    private final MercadoPagoGateway mercadoPagoGateway;
+    
     @Override
     @Transactional
     public PedidoResponse execute(final PedidoRequest pedidoRequest) {
@@ -30,6 +32,7 @@ class CadastrarPedidoUseCaseImpl implements CadastrarPedidoUseCase {
 
         pedido.setStatus(EStatusPedido.RECEBIDO);
         pedido.setStatusPagamento(EStatusPagamentoPedido.PENDENTE);
+        pedido.setQrData(mercadoPagoGateway.generateQRData(pedido));
 
         final Pedido pedidoSaved = pedidoDatabaseGateway.save(pedido);
 
@@ -37,7 +40,6 @@ class CadastrarPedidoUseCaseImpl implements CadastrarPedidoUseCase {
             pedidoSaved.getItemPedido().add(cadastrarItemPedido.execute(pedidoSaved, itemPedidoRequest));
         });
 
-        // TODO pagamento fake
 
         return pedidoPresenter.toResponse(pedidoSaved);
     }

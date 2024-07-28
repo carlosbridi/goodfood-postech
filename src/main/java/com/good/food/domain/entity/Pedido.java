@@ -1,5 +1,6 @@
 package com.good.food.domain.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -20,5 +21,10 @@ public class Pedido {
   private LocalDate dataCriacao;
   private EStatusPedido status;
   private EStatusPagamentoPedido statusPagamento;
+  private String qrData;
 
+  public BigDecimal obterTotalPedido() {
+    return itemPedido.stream().map(ItemPedido::obterTotalItem).reduce(BigDecimal.ZERO, BigDecimal::add);
+  }
+  
 }

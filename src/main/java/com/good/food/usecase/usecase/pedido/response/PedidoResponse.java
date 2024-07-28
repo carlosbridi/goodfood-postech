@@ -24,6 +24,7 @@ public class PedidoResponse {
   private LocalDate dataCriacao;
   private String status;
   private EStatusPagamentoPedido statusPagamento;
+  private String qrData;
 
   public PedidoResponse(Pedido pedido) {
     this.id = pedido.getId().toString();
@@ -33,5 +34,6 @@ public class PedidoResponse {
     this.dataCriacao = pedido.getDataCriacao();
     this.status = pedido.getStatus().name;
     this.statusPagamento = pedido.getStatusPagamento();
+    this.qrData = pedido.getQrData();
   }
 }
