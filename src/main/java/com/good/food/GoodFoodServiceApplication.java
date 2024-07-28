@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableFeignClients
 @EnableJpaRepositories(basePackages = "com.good.food.adapter.gateway.db")
 public class GoodFoodServiceApplication {
 
