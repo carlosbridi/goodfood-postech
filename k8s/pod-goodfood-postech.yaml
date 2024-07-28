@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: goodfood-postech
-        image: bridicarlos/goodfood:1.10.0
+        image: bridicarlos/goodfood:1.11.0
         ports:
         - containerPort: 80
         resources:
