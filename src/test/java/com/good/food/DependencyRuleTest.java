@@ -12,13 +12,13 @@ class DependencyRuleTest {
 
     private static final String ROOT_PACKAGE = "com.good.food";
     private static final String DOMAIN_LAYER = "domain";
-    private static final String USECASE_LAYER = "usecase";
+    private static final String USECASE_LAYER = "application";
     private static final String ADAPTER_LAYER = "adapter";
+    private static final String DRIVER_LAYER = "driver";
     private static final String USECASE_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*";
-    private static final String USECASE_REQUEST_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*.request";
-    private static final String USECASE_RESPONSE_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".usecase.*.response";
-    private static final String GATEWAYS_PACKAGE = ROOT_PACKAGE + "." + ADAPTER_LAYER + "." + "gateway";
-    private static final String PRESENTERS_PACKAGE = ROOT_PACKAGE + "." + ADAPTER_LAYER;
+    private static final String GATEWAYS_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".gateway";
+    private static final String PRESENTERS_PACKAGE = ROOT_PACKAGE + "." + USECASE_LAYER + ".presenter.*";
+    private static final String ADAPTER_PRESENTERS_PACKAGE = ROOT_PACKAGE + "." + ADAPTER_LAYER + "." + "presenter";
 
     @Test
     void checkDependencyRule() {
@@ -28,10 +28,14 @@ class DependencyRuleTest {
         // Adapter não deve depender de camadas externas
         checkNoDependencyFromTo(DOMAIN_LAYER, USECASE_LAYER, classesToCheck);
         checkNoDependencyFromTo(DOMAIN_LAYER, ADAPTER_LAYER, classesToCheck);
+        checkNoDependencyFromTo(DOMAIN_LAYER, DRIVER_LAYER, classesToCheck);
 
-        //TODO: a analisar
         // Usecase não deve depender de camadas externas
-        //checkNoDependencyFromTo(USECASE_LAYER, ADAPTER_LAYER, classesToCheck);
+        checkNoDependencyFromTo(USECASE_LAYER, ADAPTER_LAYER, classesToCheck);
+        checkNoDependencyFromTo(USECASE_LAYER, DRIVER_LAYER, classesToCheck);
+
+        // Adapter não deve depender de camadas externas
+        checkNoDependencyFromTo(ADAPTER_LAYER, DRIVER_LAYER, classesToCheck);
     }
 
     @Test
@@ -57,26 +61,6 @@ class DependencyRuleTest {
     }
 
     @Test
-    void domainRequestsShouldEndWithUseCaseImpl() {
-        String importPackages = ROOT_PACKAGE + "..";
-        JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
-
-        classes().that().resideInAPackage(USECASE_REQUEST_PACKAGE) //
-                .should().haveSimpleNameEndingWith("Request") //
-                .check(classesToCheck);
-    }
-
-    @Test
-    void domainResponsesShouldEndWithUseCaseImpl() {
-        String importPackages = ROOT_PACKAGE + "..";
-        JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
-
-        classes().that().resideInAPackage(USECASE_RESPONSE_PACKAGE) //
-                .should().haveSimpleNameEndingWith("Response") //
-                .check(classesToCheck);
-    }
-
-    @Test
     void domainGatewaysShouldEndWithUseCaseImpl() {
         String importPackages = ROOT_PACKAGE + "..";
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
@@ -92,7 +76,18 @@ class DependencyRuleTest {
         JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
 
         classes().that().resideInAPackage(PRESENTERS_PACKAGE) //
+                .and().areInterfaces() //
                 .should().haveSimpleNameEndingWith("Presenter") //
+                .check(classesToCheck);
+    }
+
+    @Test
+    void adapterPresentersImplShouldEndWithUseCaseImpl() {
+        String importPackages = ROOT_PACKAGE + "..";
+        JavaClasses classesToCheck = new ClassFileImporter().importPackages(importPackages);
+
+        classes().that().resideInAPackage(ADAPTER_PRESENTERS_PACKAGE) //
+                .should().haveSimpleNameEndingWith("PresenterImpl") //
                 .check(classesToCheck);
     }
 

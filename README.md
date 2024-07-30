@@ -22,12 +22,14 @@ Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring
 - **Enterprise Business Rules**:
   - package `com.good.food.domain`
 - **Application Business Rules**:
-  - package `com.good.food.usecase`
+  - package `com.good.food.application`
 - **Interface Adapters**:
   - package `com.good.food.adapter`
 - **Frameworks & Drivers**:
+  - package `com.good.food.driver`
   - PostgresSQL
   - Spring MVC
+
 
 # Desenho da arquitetura
 Desenho da arquitetura de infra utilizando o kubernetes
