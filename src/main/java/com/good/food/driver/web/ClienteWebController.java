@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.good.food.adapter.controller.ClienteController;
 import com.good.food.application.presenter.cliente.ClienteRequest;
 import com.good.food.application.presenter.cliente.ClienteResponse;
-import com.good.food.adapter.controller.ClienteController;
 import com.good.food.driver.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

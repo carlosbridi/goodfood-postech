@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.good.food.adapter.controller.PedidoController;
 import com.good.food.application.presenter.pedido.PedidoRequest;
 import com.good.food.application.presenter.pedido.PedidoResponse;
-import com.good.food.adapter.controller.PedidoController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
