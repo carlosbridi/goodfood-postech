@@ -1,6 +1,6 @@
-package com.good.food.usecase.gateway;
+package com.good.food.adapter.gateway;
 
-import com.good.food.domain.entity.Pedido;
+import com.good.food.domain.Pedido;
 
 public interface MercadoPagoGateway {
 

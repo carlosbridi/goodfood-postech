@@ -1,7 +1,6 @@
 package com.good.food.adapter.controller.web;
 
 import java.net.URI;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import com.good.food.adapter.controller.web.request.cliente.ClienteRequest;
 import com.good.food.adapter.controller.web.response.cliente.ClienteResponse;
 import com.good.food.controller.ClienteController;
 import com.good.food.exception.NotFoundException;
-import com.good.food.usecase.cliente.BuscarClienteUseCase;
 import com.good.food.usecase.cliente.CadastrarClienteUseCase;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -36,7 +34,6 @@ import lombok.RequiredArgsConstructor;
 public class ClienteWebController {
 
     private final ClienteController clienteController;
-    private final CadastrarClienteUseCase cadastrarClienteUseCase;
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
