@@ -42,7 +42,6 @@ import com.good.food.application.usecase.pedido.WebhookPedidoUseCase;
 import com.good.food.application.usecase.pedido.WebhookPedidoUseCaseImpl;
 import com.good.food.application.usecase.produto.BuscarProdutoUseCase;
 import com.good.food.application.usecase.produto.BuscarProdutoUseCaseImpl;
-import com.good.food.driver.db.ProdutoDatabaseGatewayImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -64,13 +63,13 @@ public class PedidoWebController {
     public PedidoWebController(PedidoDatabaseGateway pedidoDatabaseGateway, //
                                ClienteDatabaseGateway clienteDatabaseGateway, //
                                MercadoPagoGateway mercadoPagoGateway, //
-                               ItemPedidoDatabaseGateway itemPedidoDatabaseGateway) {
+                               ItemPedidoDatabaseGateway itemPedidoDatabaseGateway, //
+                               ProdutoDatabaseGateway produtoDatabaseGateway) {
         // Os gateways devem ser injetados pelo Spring para o framework inicializar os repositórios.
         // Como a implementação dos gateways está na camada mais externa, isso não quebra nenhuma regra do clean architecture.
 
         // Aqui essa camada (mais externa) escolhe e instancia as implementações que serão usadas em todas as outras camadas.
         // Para trocar a implementação do banco de dados ou um presenter, por exemplo, basta trocar a instância aqui, que irá impactar apenas nesse controller REST.
-        final ProdutoDatabaseGateway produtoDatabaseGateway = new ProdutoDatabaseGatewayImpl();
         final BuscarProdutoUseCase buscarProduto = new BuscarProdutoUseCaseImpl(produtoDatabaseGateway);
         final CadastrarItemPedidoUseCase cadastrarItemPedido = new CadastrarItemPedidoUseCaseImpl(itemPedidoDatabaseGateway, buscarProduto);
 
