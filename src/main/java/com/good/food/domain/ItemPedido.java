@@ -19,4 +19,8 @@ public class ItemPedido {
   private Integer quantidade;
   private BigDecimal preco;
   
+  public BigDecimal obterTotalItem() {
+    return preco.multiply(new BigDecimal(quantidade));
+  }
+  
 }

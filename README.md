@@ -58,7 +58,7 @@ Arquivos do K8S está na pasta "k8s".
  * **SVC DB** - svc-postgres.yaml
  * **LoadBalancer** - svc-goodfood-postech-loadbalancer.yaml
  
-Para executar o projeto em um cluster, basta executar todos os arquivos acima com o comando `kubectl apply -f .`, obter o IP a partir do `kubectl get svc` e acessar a URL `http:\\<ip>/swagger/index.html`
+Para executar o projeto em um cluster, basta executar todos os arquivos acima com o comando `kubectl apply -f .`, obter o IP a partir do `kubectl get svc` e acessar a URL `http:\\<ip>/swagger-ui/index.html`
 
 # Testes
 Para rodar os testes, basta rodar o comando `mvn test` na raiz do projeto.

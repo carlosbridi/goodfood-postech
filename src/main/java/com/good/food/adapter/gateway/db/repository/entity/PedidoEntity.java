@@ -48,6 +48,7 @@ public class PedidoEntity {
   
   private EStatusPedido status;
   private EStatusPagamentoPedido statusPagamento;
+  private String qrData;
 
   public PedidoEntity(Pedido pedido) {
     id = pedido.getId();
@@ -60,6 +61,7 @@ public class PedidoEntity {
     dataCriacao = pedido.getDataCriacao();
     status = pedido.getStatus();
     statusPagamento = pedido.getStatusPagamento();
+    qrData = pedido.getQrData();
   }
   
   public Pedido toDomain() {
@@ -74,6 +76,7 @@ public class PedidoEntity {
         .dataCriacao(dataCriacao)
         .status(status)
         .statusPagamento(statusPagamento)
+        .qrData(qrData)
       .build();
   }
   
