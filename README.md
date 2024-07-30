@@ -29,6 +29,10 @@ Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring
   - PostgresSQL
   - Spring MVC
 
+# Desenho da arquitetura
+Desenho da arquitetura de infra utilizando o kubernetes
+![Desenho da arquitetura](./doc/desenho_arquitetura.png?raw=true)
+
 
 # Tecnologias
 
@@ -69,7 +73,7 @@ Documentação no swagger: http://localhost:8080/swagger-ui/index.html (necessá
 
 # Equipe
 Carlos Bridi - RM355971  
-Nicollas Eissemann - RM355576  
+Nicollas P. Eissmann - RM355576  
 Daniel R. Martini - RM355054  
 Roberto Debarba - RM355038  
 
