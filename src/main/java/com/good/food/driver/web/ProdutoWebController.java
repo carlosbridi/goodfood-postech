@@ -2,6 +2,7 @@ package com.good.food.driver.web;
 
 import java.net.URI;
 import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.good.food.adapter.controller.ProdutoController;
+import com.good.food.adapter.controller.ProdutoControllerImpl;
+import com.good.food.adapter.presenter.ProdutoPresenterImpl;
+import com.good.food.application.gateway.ProdutoDatabaseGateway;
+import com.good.food.application.presenter.produto.ProdutoPresenter;
 import com.good.food.application.presenter.produto.ProdutoRequest;
 import com.good.food.application.presenter.produto.ProdutoResponse;
+import com.good.food.application.usecase.produto.BuscarProdutoPorCategoriaUseCase;
+import com.good.food.application.usecase.produto.BuscarProdutoPorCategoriaUseCaseImpl;
+import com.good.food.application.usecase.produto.CadastrarProdutoUseCase;
+import com.good.food.application.usecase.produto.CadastrarProdutoUseCaseImpl;
+import com.good.food.application.usecase.produto.EditarProdutoUseCase;
+import com.good.food.application.usecase.produto.EditarProdutoUseCaseImpl;
+import com.good.food.application.usecase.produto.RemoverProdutoUseCase;
+import com.good.food.application.usecase.produto.RemoverProdutoUseCaseImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,16 +42,33 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("produto")
-@RequiredArgsConstructor
 @Api(value = "/produto", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProdutoWebController {
 
     private final ProdutoController produtoController;
-  
+
+    public ProdutoWebController(ProdutoDatabaseGateway produtoDatabaseGateway) {
+        final ProdutoPresenter produtoPresenter = new ProdutoPresenterImpl();
+
+        // Os gateways devem ser injetados pelo Spring para o framework inicializar os repositórios.
+        // Como a implementação dos gateways está na camada mais externa, isso não quebra nenhuma regra do clean architecture.
+
+        // Aqui essa camada (mais externa) escolhe e instancia as implementações que serão usadas em todas as outras camadas.
+        // Para trocar a implementação do banco de dados ou um presenter, por exemplo, basta trocar a instância aqui, que irá impactar apenas nesse controller REST.
+        final CadastrarProdutoUseCase cadastrarProdutoUseCase = new CadastrarProdutoUseCaseImpl(produtoDatabaseGateway, produtoPresenter);
+        final RemoverProdutoUseCase removerProdutoUseCase = new RemoverProdutoUseCaseImpl(produtoDatabaseGateway);
+        final EditarProdutoUseCase editarProdutoUseCase = new EditarProdutoUseCaseImpl(produtoDatabaseGateway);
+        final BuscarProdutoPorCategoriaUseCase buscarProdutoPorCategoriaUseCase = new BuscarProdutoPorCategoriaUseCaseImpl(produtoDatabaseGateway);
+
+        this.produtoController = new ProdutoControllerImpl(cadastrarProdutoUseCase, //
+                                                           removerProdutoUseCase, //
+                                                           editarProdutoUseCase, //
+                                                           buscarProdutoPorCategoriaUseCase, //
+                                                           produtoPresenter);
+    }
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),

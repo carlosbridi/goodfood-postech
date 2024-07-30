@@ -3,22 +3,18 @@ package com.good.food.adapter.controller;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
 
 import com.good.food.application.presenter.pedido.ItemPedidoRequest;
+import com.good.food.application.presenter.pedido.PedidoPresenter;
 import com.good.food.application.presenter.pedido.PedidoRequest;
 import com.good.food.application.presenter.pedido.PedidoResponse;
-import com.good.food.application.presenter.pedido.PedidoPresenter;
 import com.good.food.application.usecase.pedido.AvancarStatusUseCase;
 import com.good.food.application.usecase.pedido.BuscarPedidoUseCase;
 import com.good.food.application.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
 import com.good.food.application.usecase.pedido.CadastrarPedidoUseCase;
 import com.good.food.application.usecase.pedido.RegredirStatusUseCase;
 import com.good.food.application.usecase.pedido.WebhookPedidoUseCase;
-import lombok.RequiredArgsConstructor;
 
-@Component
-@RequiredArgsConstructor
 public class PedidoControllerImpl implements PedidoController {
 
   private final CadastrarPedidoUseCase cadastrarPedido;
@@ -27,9 +23,18 @@ public class PedidoControllerImpl implements PedidoController {
   private final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertos;
   private final BuscarPedidoUseCase buscarPedidoUseCase;
   private final WebhookPedidoUseCase webhookPedidoUseCase;
-
   private final PedidoPresenter pedidoPresenter;
-  
+
+  public PedidoControllerImpl(CadastrarPedidoUseCase cadastrarPedido, AvancarStatusUseCase avancarStatus, RegredirStatusUseCase regredirStatus, BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertos, BuscarPedidoUseCase buscarPedidoUseCase, WebhookPedidoUseCase webhookPedidoUseCase, PedidoPresenter pedidoPresenter) {
+    this.cadastrarPedido = cadastrarPedido;
+    this.avancarStatus = avancarStatus;
+    this.regredirStatus = regredirStatus;
+    this.buscarTodosPedidosAbertos = buscarTodosPedidosAbertos;
+    this.buscarPedidoUseCase = buscarPedidoUseCase;
+    this.webhookPedidoUseCase = webhookPedidoUseCase;
+    this.pedidoPresenter = pedidoPresenter;
+  }
+
   @Override
   public PedidoResponse regredirStatus(String id) {
     return pedidoPresenter.toResponse(regredirStatus.execute(id));

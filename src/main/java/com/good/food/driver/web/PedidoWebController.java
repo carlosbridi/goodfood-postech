@@ -2,6 +2,7 @@ package com.good.food.driver.web;
 
 import java.net.URI;
 import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,33 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.good.food.adapter.controller.PedidoController;
+import com.good.food.adapter.controller.PedidoControllerImpl;
+import com.good.food.adapter.presenter.PedidoPresenterImpl;
+import com.good.food.application.gateway.ClienteDatabaseGateway;
+import com.good.food.application.gateway.ItemPedidoDatabaseGateway;
+import com.good.food.application.gateway.MercadoPagoGateway;
+import com.good.food.application.gateway.PedidoDatabaseGateway;
+import com.good.food.application.gateway.ProdutoDatabaseGateway;
+import com.good.food.application.presenter.pedido.PedidoPresenter;
 import com.good.food.application.presenter.pedido.PedidoRequest;
 import com.good.food.application.presenter.pedido.PedidoResponse;
+import com.good.food.application.usecase.pedido.AvancarStatusUseCase;
+import com.good.food.application.usecase.pedido.AvancarStatusUseCaseImpl;
+import com.good.food.application.usecase.pedido.BuscarPedidoUseCase;
+import com.good.food.application.usecase.pedido.BuscarPedidoUseCaseImpl;
+import com.good.food.application.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
+import com.good.food.application.usecase.pedido.BuscarTodosPedidosAbertosUseCaseImpl;
+import com.good.food.application.usecase.pedido.CadastrarItemPedidoUseCase;
+import com.good.food.application.usecase.pedido.CadastrarItemPedidoUseCaseImpl;
+import com.good.food.application.usecase.pedido.CadastrarPedidoUseCase;
+import com.good.food.application.usecase.pedido.CadastrarPedidoUseCaseImpl;
+import com.good.food.application.usecase.pedido.RegredirStatusUseCase;
+import com.good.food.application.usecase.pedido.RegredirStatusUseCaseImpl;
+import com.good.food.application.usecase.pedido.WebhookPedidoUseCase;
+import com.good.food.application.usecase.pedido.WebhookPedidoUseCaseImpl;
+import com.good.food.application.usecase.produto.BuscarProdutoUseCase;
+import com.good.food.application.usecase.produto.BuscarProdutoUseCaseImpl;
+import com.good.food.driver.db.ProdutoDatabaseGatewayImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -27,16 +53,44 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("pedido")
-@RequiredArgsConstructor
 @Api(value = "/pedido", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoWebController {
 
     private final PedidoController pedidoController;
-  
+
+    public PedidoWebController(PedidoDatabaseGateway pedidoDatabaseGateway, //
+                               ClienteDatabaseGateway clienteDatabaseGateway, //
+                               MercadoPagoGateway mercadoPagoGateway, //
+                               ItemPedidoDatabaseGateway itemPedidoDatabaseGateway) {
+        // Os gateways devem ser injetados pelo Spring para o framework inicializar os repositórios.
+        // Como a implementação dos gateways está na camada mais externa, isso não quebra nenhuma regra do clean architecture.
+
+        // Aqui essa camada (mais externa) escolhe e instancia as implementações que serão usadas em todas as outras camadas.
+        // Para trocar a implementação do banco de dados ou um presenter, por exemplo, basta trocar a instância aqui, que irá impactar apenas nesse controller REST.
+        final ProdutoDatabaseGateway produtoDatabaseGateway = new ProdutoDatabaseGatewayImpl();
+        final BuscarProdutoUseCase buscarProduto = new BuscarProdutoUseCaseImpl(produtoDatabaseGateway);
+        final CadastrarItemPedidoUseCase cadastrarItemPedido = new CadastrarItemPedidoUseCaseImpl(itemPedidoDatabaseGateway, buscarProduto);
+
+        final CadastrarPedidoUseCase cadastrarPedidoUseCase = new CadastrarPedidoUseCaseImpl(pedidoDatabaseGateway, clienteDatabaseGateway, mercadoPagoGateway, cadastrarItemPedido);
+        final AvancarStatusUseCase avancarStatusUseCase = new AvancarStatusUseCaseImpl(pedidoDatabaseGateway);
+        final RegredirStatusUseCase regredirStatusUseCase = new RegredirStatusUseCaseImpl(pedidoDatabaseGateway);
+        final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertosUseCase = new BuscarTodosPedidosAbertosUseCaseImpl(pedidoDatabaseGateway);
+        final BuscarPedidoUseCase buscarPedidoUseCase = new BuscarPedidoUseCaseImpl(pedidoDatabaseGateway);
+        final WebhookPedidoUseCase webhookPedidoUseCase = new WebhookPedidoUseCaseImpl(pedidoDatabaseGateway);
+        final PedidoPresenter pedidoPresenter = new PedidoPresenterImpl();
+
+        this.pedidoController = new PedidoControllerImpl(cadastrarPedidoUseCase, //
+                                                         avancarStatusUseCase, //
+                                                         regredirStatusUseCase, //
+                                                         buscarTodosPedidosAbertosUseCase, //
+                                                         buscarPedidoUseCase,//
+                                                         webhookPedidoUseCase, //
+                                                         pedidoPresenter);
+    }
+
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 201, message = "Created")

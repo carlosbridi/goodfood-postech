@@ -1,21 +1,23 @@
 package com.good.food.application.usecase.pedido;
 
 import java.math.BigDecimal;
-import org.springframework.stereotype.Component;
+
 import com.good.food.application.gateway.ItemPedidoDatabaseGateway;
+import com.good.food.application.usecase.produto.BuscarProdutoUseCase;
 import com.good.food.domain.ItemPedido;
 import com.good.food.domain.Pedido;
 import com.good.food.domain.Produto;
-import com.good.food.application.usecase.produto.BuscarProdutoUseCase;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
-@Component
-@RequiredArgsConstructor
-class CadastrarItemPedidoUseCaseImpl implements CadastrarItemPedidoUseCase {
+public class CadastrarItemPedidoUseCaseImpl implements CadastrarItemPedidoUseCase {
 
-  private final BuscarProdutoUseCase buscarProduto;
   private final ItemPedidoDatabaseGateway itemPedidoDatabaseGateway;
+  private final BuscarProdutoUseCase buscarProduto;
+
+  public CadastrarItemPedidoUseCaseImpl(ItemPedidoDatabaseGateway itemPedidoDatabaseGateway, BuscarProdutoUseCase buscarProduto) {
+    this.itemPedidoDatabaseGateway = itemPedidoDatabaseGateway;
+    this.buscarProduto = buscarProduto;
+  }
 
   @Override
   @Transactional

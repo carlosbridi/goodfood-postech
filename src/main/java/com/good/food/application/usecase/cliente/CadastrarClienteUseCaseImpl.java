@@ -1,16 +1,16 @@
 package com.good.food.application.usecase.cliente;
 
-import org.springframework.stereotype.Component;
 import com.good.food.application.gateway.ClienteDatabaseGateway;
-import com.good.food.domain.Cliente;
 import com.good.food.application.usecase.BussinessValidationException;
-import lombok.RequiredArgsConstructor;
+import com.good.food.domain.Cliente;
 
-@Component
-@RequiredArgsConstructor
-class CadastrarClienteUseCaseImpl implements CadastrarClienteUseCase {
+public class CadastrarClienteUseCaseImpl implements CadastrarClienteUseCase {
 
   private final ClienteDatabaseGateway clienteDatabaseGateway;
+
+  public CadastrarClienteUseCaseImpl(ClienteDatabaseGateway clienteDatabaseGateway) {
+    this.clienteDatabaseGateway = clienteDatabaseGateway;
+  }
 
   @Override
   public Cliente execute(Cliente cliente) {

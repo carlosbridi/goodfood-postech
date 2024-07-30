@@ -17,7 +17,6 @@ O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjV
 
 # Arquitetura Clean Architecture
 
-Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring-boot-clean-architecture)
 ![clean-arch](/doc/clean-architecture.jpg?raw=true)
 - **Enterprise Business Rules**:
   - package `com.good.food.domain`
@@ -30,6 +29,7 @@ Baseado em [Clean Architecture with Spring Boot](https://www.baeldung.com/spring
   - PostgresSQL
   - Spring MVC
 
+*Evitou-se o uso de frameworks nas camadas internas, como pro exemplo o Spring beans, para obter uma implementação mais pura da proposta da arquitetura.*
 
 # Desenho da arquitetura
 Desenho da arquitetura de infra utilizando o kubernetes

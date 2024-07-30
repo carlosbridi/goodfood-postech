@@ -3,21 +3,23 @@ package com.good.food.driver.db;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.good.food.application.gateway.ProdutoDatabaseGateway;
-import com.good.food.driver.db.repository.ProdutoRepository;
-import com.good.food.driver.db.repository.entity.ProdutoEntity;
 import com.good.food.domain.EProdutoCategoria;
 import com.good.food.domain.Produto;
 import com.good.food.driver.NotFoundException;
-import lombok.RequiredArgsConstructor;
+import com.good.food.driver.db.repository.ProdutoRepository;
+import com.good.food.driver.db.repository.entity.ProdutoEntity;
 
 @Component
-@RequiredArgsConstructor
 public class ProdutoDatabaseGatewayImpl implements ProdutoDatabaseGateway {
 
-  private final ProdutoRepository produtoRepository;
+  @Autowired
+  private ProdutoRepository produtoRepository;
 
   @Override
   public Produto save(Produto produto) {

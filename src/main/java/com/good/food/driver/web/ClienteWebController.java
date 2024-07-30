@@ -1,6 +1,7 @@
 package com.good.food.driver.web;
 
 import java.net.URI;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.good.food.adapter.controller.ClienteController;
+import com.good.food.adapter.controller.ClienteControllerImpl;
+import com.good.food.adapter.presenter.ClientePresenterImpl;
+import com.good.food.application.gateway.ClienteDatabaseGateway;
+import com.good.food.application.presenter.cliente.ClientePresenter;
 import com.good.food.application.presenter.cliente.ClienteRequest;
 import com.good.food.application.presenter.cliente.ClienteResponse;
+import com.good.food.application.usecase.cliente.BuscarClienteUseCase;
+import com.good.food.application.usecase.cliente.BuscarClienteUseCaseImpl;
+import com.good.food.application.usecase.cliente.CadastrarClienteUseCase;
+import com.good.food.application.usecase.cliente.CadastrarClienteUseCaseImpl;
 import com.good.food.driver.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,15 +34,27 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("cliente")
-@RequiredArgsConstructor
 @Api(value = "/cliente", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClienteWebController {
 
     private final ClienteController clienteController;
+
+    public ClienteWebController(ClienteDatabaseGateway clienteDatabaseGateway) {
+        // Os gateways devem ser injetados pelo Spring para o framework inicializar os repositórios.
+        // Como a implementação dos gateways está na camada mais externa, isso não quebra nenhuma regra do clean architecture.
+
+        // Aqui essa camada (mais externa) escolhe e instancia as implementações que serão usadas em todas as outras camadas.
+        // Para trocar a implementação do banco de dados ou um presenter, por exemplo, basta trocar a instância aqui, que irá impactar apenas nesse controller REST.
+
+        final BuscarClienteUseCase buscarClienteUseCase = new BuscarClienteUseCaseImpl(clienteDatabaseGateway);
+        final CadastrarClienteUseCase cadastrarClienteUseCase = new CadastrarClienteUseCaseImpl(clienteDatabaseGateway);
+        final ClientePresenter clientePresenter = new ClientePresenterImpl();
+
+        this.clienteController = new ClienteControllerImpl(buscarClienteUseCase, cadastrarClienteUseCase, clientePresenter);
+    }
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
