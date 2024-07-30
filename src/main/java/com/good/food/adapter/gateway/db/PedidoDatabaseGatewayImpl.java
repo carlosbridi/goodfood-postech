@@ -6,12 +6,11 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.good.food.usecase.gateway.PedidoDatabaseGateway;
+import com.good.food.adapter.gateway.PedidoDatabaseGateway;
 import com.good.food.adapter.gateway.db.repository.PedidoRepository;
 import com.good.food.adapter.gateway.db.repository.entity.PedidoEntity;
-import com.good.food.domain.entity.Pedido;
-import com.good.food.usecase.exception.NotFoundException;
+import com.good.food.domain.Pedido;
+import com.good.food.exception.NotFoundException;
 
 @Component
 public class PedidoDatabaseGatewayImpl implements PedidoDatabaseGateway {

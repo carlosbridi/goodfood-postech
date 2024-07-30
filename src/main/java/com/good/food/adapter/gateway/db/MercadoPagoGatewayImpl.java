@@ -2,8 +2,8 @@ package com.good.food.adapter.gateway.db;
 
 import java.util.UUID;
 import org.springframework.stereotype.Component;
-import com.good.food.domain.entity.Pedido;
-import com.good.food.usecase.gateway.MercadoPagoGateway;
+import com.good.food.adapter.gateway.MercadoPagoGateway;
+import com.good.food.domain.Pedido;
 
 @Component
 public class MercadoPagoGatewayImpl implements MercadoPagoGateway {

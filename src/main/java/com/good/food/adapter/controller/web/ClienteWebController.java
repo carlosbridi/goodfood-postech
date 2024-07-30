@@ -1,7 +1,6 @@
 package com.good.food.adapter.controller.web;
 
 import java.net.URI;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.good.food.usecase.exception.NotFoundException;
-import com.good.food.usecase.usecase.cliente.BuscarClienteUseCase;
-import com.good.food.usecase.usecase.cliente.CadastrarClienteUseCase;
-import com.good.food.usecase.usecase.cliente.request.ClienteRequest;
-import com.good.food.usecase.usecase.cliente.response.ClienteResponse;
+import com.good.food.adapter.controller.web.request.cliente.ClienteRequest;
+import com.good.food.adapter.controller.web.response.cliente.ClienteResponse;
+import com.good.food.controller.ClienteController;
+import com.good.food.exception.NotFoundException;
+import com.good.food.usecase.cliente.CadastrarClienteUseCase;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -35,8 +33,7 @@ import lombok.RequiredArgsConstructor;
 @Api(value = "/cliente", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClienteWebController {
 
-    private final BuscarClienteUseCase buscarClienteUseCase;
-    private final CadastrarClienteUseCase cadastrarClienteUseCase;
+    private final ClienteController clienteController;
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
@@ -64,7 +61,7 @@ public class ClienteWebController {
             )
     )
     public ResponseEntity<ClienteResponse> cadastrarCliente(@RequestBody ClienteRequest clienteRequest) {
-        final ClienteResponse clienteResponse = cadastrarClienteUseCase.execute(clienteRequest);
+        final ClienteResponse clienteResponse = clienteController.cadastrarCliente(clienteRequest);
         return ResponseEntity.created(URI.create("/" + clienteResponse.getUuid())).body(clienteResponse);
     }
 
@@ -85,7 +82,7 @@ public class ClienteWebController {
             )
     )
     public ResponseEntity<ClienteResponse> findByCpf(@PathVariable String cpf) {
-        return ResponseEntity.ok().body(buscarClienteUseCase.execute(cpf)
+        return ResponseEntity.ok().body(clienteController.buscarCliente(cpf)
                                                 .orElseThrow(() -> new NotFoundException("Cliente não encontrado com o CPF informado")));
     }
 }

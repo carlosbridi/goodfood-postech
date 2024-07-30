@@ -2,8 +2,6 @@ package com.good.food.adapter.controller.web;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.good.food.usecase.usecase.pedido.AvancarStatusUseCase;
-import com.good.food.usecase.usecase.pedido.BuscarPedidoUseCase;
-import com.good.food.usecase.usecase.pedido.BuscarTodosPedidosAbertosUseCase;
-import com.good.food.usecase.usecase.pedido.CadastrarPedidoUseCase;
-import com.good.food.usecase.usecase.pedido.RegredirStatusUseCase;
-import com.good.food.usecase.usecase.pedido.WebhookPedidoUseCase;
-import com.good.food.usecase.usecase.pedido.request.PedidoRequest;
-import com.good.food.usecase.usecase.pedido.response.PedidoResponse;
+import com.good.food.adapter.controller.web.request.pedido.PedidoRequest;
+import com.good.food.adapter.controller.web.response.pedido.PedidoResponse;
+import com.good.food.controller.PedidoController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -42,13 +34,8 @@ import lombok.RequiredArgsConstructor;
 @Api(value = "/pedido", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoWebController {
 
-    private final CadastrarPedidoUseCase cadastrarPedido;
-    private final AvancarStatusUseCase avancarStatus;
-    private final RegredirStatusUseCase regredirStatus;
-    private final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertos;
-    private final BuscarPedidoUseCase buscarPedidoUseCase;
-    private final WebhookPedidoUseCase webhookPedidoUseCase;
-
+    private final PedidoController pedidoController;
+  
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 201, message = "Created")
@@ -66,7 +53,7 @@ public class PedidoWebController {
             )
     )
     public ResponseEntity<PedidoResponse> regredirStatus(@PathVariable String id) {
-        PedidoResponse pedidoResponse = regredirStatus.execute(id);
+        PedidoResponse pedidoResponse = pedidoController.regredirStatus(id);
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
     }
 
@@ -87,7 +74,7 @@ public class PedidoWebController {
             )
     )
     public ResponseEntity<PedidoResponse> avancarStatus(@PathVariable String id) {
-        PedidoResponse pedidoResponse = avancarStatus.execute(id);
+        PedidoResponse pedidoResponse = pedidoController.avancarStatus(id);
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
     }
 
@@ -107,7 +94,7 @@ public class PedidoWebController {
                     """
     )
     public ResponseEntity<List<PedidoResponse>> retornarTodosPedidosAbertos() {
-        return ResponseEntity.ok().body(buscarTodosPedidosAbertos.execute());
+        return ResponseEntity.ok().body(pedidoController.retornarTodosPedidosAbertos());
     }
 
     @ApiResponses(value = {
@@ -127,7 +114,7 @@ public class PedidoWebController {
             )
     )
     public ResponseEntity<PedidoResponse> retornarPedidosPorId(@PathVariable String id) {
-        return ResponseEntity.ok().body(buscarPedidoUseCase.execute(UUID.fromString(id)));
+        return ResponseEntity.ok().body(pedidoController.buscarPedido(id));
     }
 
     @ApiResponses(value = {
@@ -156,7 +143,7 @@ public class PedidoWebController {
             )
     )
     public ResponseEntity<PedidoResponse> cadastrarPedido(@RequestBody @Valid PedidoRequest pedidoRequest) {
-        PedidoResponse pedidoResponse = cadastrarPedido.execute(pedidoRequest);
+        PedidoResponse pedidoResponse = pedidoController.cadastrarPedido(pedidoRequest);
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
     }
 
@@ -176,6 +163,6 @@ public class PedidoWebController {
             )
     )
     public ResponseEntity<PedidoResponse> webhookPedido(@PathVariable String idPedido) {
-        return ResponseEntity.ok().body(webhookPedidoUseCase.execute(idPedido));
+        return ResponseEntity.ok().body(pedidoController.webhookPedido(idPedido));
     }
 }

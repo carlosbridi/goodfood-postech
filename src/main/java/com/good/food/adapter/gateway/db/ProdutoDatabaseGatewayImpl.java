@@ -5,13 +5,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-
-import com.good.food.usecase.gateway.ProdutoDatabaseGateway;
+import com.good.food.adapter.gateway.ProdutoDatabaseGateway;
 import com.good.food.adapter.gateway.db.repository.ProdutoRepository;
-import com.good.food.domain.entity.EProdutoCategoria;
 import com.good.food.adapter.gateway.db.repository.entity.ProdutoEntity;
-import com.good.food.domain.entity.Produto;
-import com.good.food.usecase.exception.NotFoundException;
+import com.good.food.domain.EProdutoCategoria;
+import com.good.food.domain.Produto;
+import com.good.food.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Component
