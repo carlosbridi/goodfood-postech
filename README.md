@@ -40,9 +40,9 @@ Desenho da arquitetura de infra utilizando o kubernetes
 # Tecnologias
 
 Tecnologias utilizadas
-- Java
-- Springboot
-- Maven
+- Java;
+- Springboot;
+- Maven;
 - Banco de dados:
 - PostegreSQL 16
 
