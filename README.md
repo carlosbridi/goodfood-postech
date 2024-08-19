@@ -12,6 +12,7 @@ As resoluções por fase estão nas tags do git fase1-*, fase2-*, etc.
 
 
 # DDD
+
 O DDD do projeto está disponibilizado no [Miro](https://miro.com/app/board/uXjVKTxXwGc=/?share_link_id=520536120828) ou na pasta /doc/ddd (baixa qualidade).
 
 
