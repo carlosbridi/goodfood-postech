@@ -3,6 +3,8 @@ package com.good.food.driver.web;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -147,6 +149,7 @@ public class ProdutoWebController {
                     example = "BEBIDA"
             )
     )
+    @Cacheable(value = "ProdutoResponse", key = "#categoria")
     public ResponseEntity<List<ProdutoResponse>> buscarPorCategoria(@RequestParam String categoria) {
         List<ProdutoResponse> produtos = produtoController.buscarPorCategoria(categoria);
         return ResponseEntity.ok().body(produtos);
@@ -167,6 +170,7 @@ public class ProdutoWebController {
                     example = "123e4567-e89b-12d3-a456-426614174000"
             )
     )
+    @CacheEvict(value = "ProdutoResponse", allEntries = true)
     public ResponseEntity<Void> removerProduto(@PathVariable String id) {
         produtoController.removerProduto(id);
         return ResponseEntity.status(HttpStatus.OK).build();
