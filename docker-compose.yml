@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   app:
-    image: bridicarlos/goodfood:1.10.0
+    image: bridicarlos/goodfood:latest
     hostname: goodfood
     environment:
       - SERVER_PORT=8080
@@ -13,6 +13,7 @@ services:
       - "8080:8080"    
     depends_on:
       - db-postgres
+      - db-redis
   db-postgres:
     image: postgres:latest
     hostname: db
@@ -22,5 +23,10 @@ services:
       - POSTGRES_DB=food
     ports:
       - "5432:5432"
+  db-redis:
+    image: redis:latest
+    hostname: redis
+    ports:
+      - "6379:6379"
 networks:
   app-network:

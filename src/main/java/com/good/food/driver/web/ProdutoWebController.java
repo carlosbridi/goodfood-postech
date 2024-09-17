@@ -98,6 +98,7 @@ public class ProdutoWebController {
                     )
             )
     )
+    @CacheEvict(value = "ProdutoResponse", allEntries = true)
     public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest produtoRequest) {
         ProdutoResponse produtoResponse = produtoController.cadastrarProduto(produtoRequest);
         return ResponseEntity.created(URI.create("/" + produtoResponse.getUuid())).body(produtoResponse);
@@ -129,6 +130,7 @@ public class ProdutoWebController {
                     )
             )
     )
+    @CacheEvict(value = "ProdutoResponse", allEntries = true)
     public ResponseEntity<Void> editarProduto(@PathVariable String id, @RequestBody @Valid ProdutoRequest produtoRequest) {
         produtoController.editarProduto(produtoRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -150,9 +152,8 @@ public class ProdutoWebController {
             )
     )
     @Cacheable(value = "ProdutoResponse", key = "#categoria")
-    public ResponseEntity<List<ProdutoResponse>> buscarPorCategoria(@RequestParam String categoria) {
-        List<ProdutoResponse> produtos = produtoController.buscarPorCategoria(categoria);
-        return ResponseEntity.ok().body(produtos);
+    public List<ProdutoResponse> buscarPorCategoria(@RequestParam String categoria) {
+        return produtoController.buscarPorCategoria(categoria);
     }
 
     @ApiResponses(value = {
