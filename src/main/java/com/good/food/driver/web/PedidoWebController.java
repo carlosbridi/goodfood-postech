@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.good.food.adapter.controller.PedidoController;
 import com.good.food.adapter.controller.PedidoControllerImpl;
 import com.good.food.adapter.presenter.PedidoPresenterImpl;
-import com.good.food.application.gateway.ClienteDatabaseGateway;
 import com.good.food.application.gateway.ItemPedidoDatabaseGateway;
 import com.good.food.application.gateway.MercadoPagoGateway;
 import com.good.food.application.gateway.PedidoDatabaseGateway;
@@ -61,7 +60,6 @@ public class PedidoWebController {
     private final PedidoController pedidoController;
 
     public PedidoWebController(PedidoDatabaseGateway pedidoDatabaseGateway, //
-                               ClienteDatabaseGateway clienteDatabaseGateway, //
                                MercadoPagoGateway mercadoPagoGateway, //
                                ItemPedidoDatabaseGateway itemPedidoDatabaseGateway, //
                                ProdutoDatabaseGateway produtoDatabaseGateway) {
@@ -73,7 +71,7 @@ public class PedidoWebController {
         final BuscarProdutoUseCase buscarProduto = new BuscarProdutoUseCaseImpl(produtoDatabaseGateway);
         final CadastrarItemPedidoUseCase cadastrarItemPedido = new CadastrarItemPedidoUseCaseImpl(itemPedidoDatabaseGateway, buscarProduto);
 
-        final CadastrarPedidoUseCase cadastrarPedidoUseCase = new CadastrarPedidoUseCaseImpl(pedidoDatabaseGateway, clienteDatabaseGateway, mercadoPagoGateway, cadastrarItemPedido);
+        final CadastrarPedidoUseCase cadastrarPedidoUseCase = new CadastrarPedidoUseCaseImpl(pedidoDatabaseGateway, mercadoPagoGateway, cadastrarItemPedido);
         final AvancarStatusUseCase avancarStatusUseCase = new AvancarStatusUseCaseImpl(pedidoDatabaseGateway);
         final RegredirStatusUseCase regredirStatusUseCase = new RegredirStatusUseCaseImpl(pedidoDatabaseGateway);
         final BuscarTodosPedidosAbertosUseCase buscarTodosPedidosAbertosUseCase = new BuscarTodosPedidosAbertosUseCaseImpl(pedidoDatabaseGateway);
@@ -197,7 +195,7 @@ public class PedidoWebController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = PedidoRequest.class),
                             examples = @ExampleObject(
-                                    value = "{ \"clienteCPF\": \"123.456.789-00\", \"itemPedidos\": [{ \"produtoUUID\": \"123e4567-e89b-12d3-a456-426614174000\", \"observacoes\": \"Sem açúcar\", \"quantidade\": 2 }] }"
+                                    value = "{ \"clienteCPF\": \"123.456.789-00\", \"clienteNome\": \"Foo\", \"itemPedidos\": [{ \"produtoUUID\": \"123e4567-e89b-12d3-a456-426614174000\", \"observacoes\": \"Sem açúcar\", \"quantidade\": 2 }] }"
                             )
                     )
             )

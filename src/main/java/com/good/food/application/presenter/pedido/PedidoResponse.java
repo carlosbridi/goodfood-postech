@@ -18,6 +18,7 @@ public class PedidoResponse {
 
   private String id;
   private String cpf;
+  private String nome;
   private List<ItemPedidoResponse> itemPedido = new ArrayList<>();
   private LocalDate dataAtualizacao;
   private LocalDate dataCriacao;
@@ -27,7 +28,8 @@ public class PedidoResponse {
 
   public PedidoResponse(Pedido pedido) {
     this.id = pedido.getId().toString();
-    this.cpf = Optional.ofNullable(pedido.getCliente()).map(cli -> cli.getCpf()).orElse(null);
+    this.cpf = pedido.getCpf();
+    this.nome = pedido.getNome();
     this.itemPedido = pedido.getItemPedido().stream().map(ItemPedidoResponse::new).collect(Collectors.toList());
     this.dataAtualizacao = pedido.getDataAtualizacao();
     this.dataCriacao = pedido.getDataCriacao();

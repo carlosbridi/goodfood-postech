@@ -15,13 +15,15 @@ import lombok.Setter;
 public class Pedido {
 
   private UUID id;
-  private Cliente cliente;
+  private String nome;
+  private String cpf;
   private List<ItemPedido> itemPedido;
   private LocalDate dataAtualizacao;
   private LocalDate dataCriacao;
   private EStatusPedido status;
   private EStatusPagamentoPedido statusPagamento;
   private String qrData;
+
 
   public BigDecimal obterTotalPedido() {
     return itemPedido.stream().map(ItemPedido::obterTotalItem).reduce(BigDecimal.ZERO, BigDecimal::add);
