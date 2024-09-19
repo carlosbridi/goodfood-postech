@@ -74,6 +74,12 @@ Atualmente os testes apenas validam as dependências entre os pacotes, garantind
 # Endpoints
 Documentação no swagger: http://localhost:8080/swagger-ui/index.html (necessário rodar o projeto para acessar)
 
+# Banco de dados
+O banco de dados utilizado é o PostgreSQL, com a seguinte configuração:
+![img.png](./doc/MER do banco.png?raw=true)
+Para o tech challenge 3, como melhoria pra o nosso banco, foi removida a tabela de clientes/usuário do postgresql e movemos para o para o AWS Cognito.
+Além disso, também adicionamos um banco Redis para guardar cache da tabela produto.
+
 # Equipe
 Carlos Bridi - RM355971  
 Nicollas P. Eissmann - RM355576  
