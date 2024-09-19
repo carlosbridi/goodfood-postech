@@ -38,8 +38,8 @@ public class PedidoEntity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "pedido_id")
   private UUID id;
-  @ManyToOne(optional = true, fetch = FetchType.LAZY)
-  private ClienteEntity cliente;  
+  private String nome;
+  private String cpf;
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<ItemPedidoEntity> itemPedido = new ArrayList<>();
 
@@ -52,7 +52,6 @@ public class PedidoEntity {
 
   public PedidoEntity(Pedido pedido) {
     id = pedido.getId();
-    cliente = Optional.ofNullable(pedido.getCliente()).map(ClienteEntity::new).orElse(null);
     itemPedido = CollectionUtils.emptyIfNull(pedido.getItemPedido())
         .stream()
         .map(ItemPedidoEntity::new)
@@ -62,12 +61,13 @@ public class PedidoEntity {
     status = pedido.getStatus();
     statusPagamento = pedido.getStatusPagamento();
     qrData = pedido.getQrData();
+    nome = pedido.getNome();
+    cpf = pedido.getCpf();
   }
   
   public Pedido toDomain() {
     return Pedido.builder()
         .id(id)
-        .cliente(Optional.ofNullable(cliente).map(ClienteEntity::toDomain).orElse(null))
         .itemPedido(
               CollectionUtils.emptyIfNull(itemPedido).stream()
               .map(ItemPedidoEntity::toDomain)
@@ -75,6 +75,8 @@ public class PedidoEntity {
         .dataAtualizacao(dataAtualizacao)
         .dataCriacao(dataCriacao)
         .status(status)
+        .nome(nome)
+        .cpf(cpf)
         .statusPagamento(statusPagamento)
         .qrData(qrData)
       .build();
