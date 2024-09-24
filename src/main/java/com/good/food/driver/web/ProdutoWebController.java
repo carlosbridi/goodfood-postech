@@ -3,6 +3,8 @@ package com.good.food.driver.web;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -96,6 +98,7 @@ public class ProdutoWebController {
                     )
             )
     )
+    @CacheEvict(value = "ProdutoResponse", allEntries = true)
     public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest produtoRequest) {
         ProdutoResponse produtoResponse = produtoController.cadastrarProduto(produtoRequest);
         return ResponseEntity.created(URI.create("/" + produtoResponse.getUuid())).body(produtoResponse);
@@ -127,6 +130,7 @@ public class ProdutoWebController {
                     )
             )
     )
+    @CacheEvict(value = "ProdutoResponse", allEntries = true)
     public ResponseEntity<Void> editarProduto(@PathVariable String id, @RequestBody @Valid ProdutoRequest produtoRequest) {
         produtoController.editarProduto(produtoRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -147,9 +151,9 @@ public class ProdutoWebController {
                     example = "BEBIDA"
             )
     )
-    public ResponseEntity<List<ProdutoResponse>> buscarPorCategoria(@RequestParam String categoria) {
-        List<ProdutoResponse> produtos = produtoController.buscarPorCategoria(categoria);
-        return ResponseEntity.ok().body(produtos);
+    @Cacheable(value = "ProdutoResponse", key = "#categoria")
+    public List<ProdutoResponse> buscarPorCategoria(@RequestParam String categoria) {
+        return produtoController.buscarPorCategoria(categoria);
     }
 
     @ApiResponses(value = {
@@ -167,6 +171,7 @@ public class ProdutoWebController {
                     example = "123e4567-e89b-12d3-a456-426614174000"
             )
     )
+    @CacheEvict(value = "ProdutoResponse", allEntries = true)
     public ResponseEntity<Void> removerProduto(@PathVariable String id) {
         produtoController.removerProduto(id);
         return ResponseEntity.status(HttpStatus.OK).build();
