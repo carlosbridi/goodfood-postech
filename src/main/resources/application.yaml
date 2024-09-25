@@ -4,6 +4,10 @@ springdoc:
   swagger-ui:
     path: /swagger-ui-custom.html
 spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   datasource:
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
