@@ -76,10 +76,12 @@ Documentação no swagger: http://localhost:8080/swagger-ui/index.html (necessá
 
 # Banco de dados
 O banco de dados utilizado é o PostgreSQL, com a seguinte configuração:
-![img.png](./doc/MER do banco.png?raw=true)
-Para o tech challenge 3, como melhoria pra o nosso banco, foi removida a tabela de clientes/usuário do postgresql e movemos para o para o AWS Cognito.
-Além disso, também adicionamos um banco Redis para guardar cache da tabela produto.
 
+![img.png](./doc/MER do banco.png?raw=true)
+
+Optamos por utilizar o PostgreSQL por ser um banco de dados open source e ter uma comunidade ativa. Além disso, o PostgreSQL é um banco de dados relacional, o que facilita a modelagem de dados e a garantia da integridade referencial. O PostgreSQL também, caso necessário, é fácil de migrar para outro banco relacional e é altamente customizável.
+
+Para o tech challenge 3, como melhoria para o nosso banco, foi removida a tabela de clientes/usuários do PostgreSQL e movemos para o AWS Cognito. Além disso, também adicionamos um banco Redis para guardar o cache da tabela produto. A escolha do Redis se deve ao seu desempenho na seleção de dados e à fácil escalabilidade, junto com a simplicidade da API em si, que permite a integração com várias outras linguagens e frameworks.
 # Equipe
 Carlos Bridi - RM355971  
 Nicollas P. Eissmann - RM355576  
