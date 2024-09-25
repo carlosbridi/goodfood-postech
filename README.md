@@ -76,9 +76,25 @@ Documentação no swagger: http://localhost:8080/swagger-ui/index.html (necessá
 
 # Banco de dados
 O banco de dados utilizado é o PostgreSQL, com a seguinte configuração:
+
 ![img.png](./doc/MER do banco.png?raw=true)
-Para o tech challenge 3, como melhoria pra o nosso banco, foi removida a tabela de clientes/usuário do postgresql e movemos para o para o AWS Cognito.
-Além disso, também adicionamos um banco Redis para guardar cache da tabela produto.
+
+Os prinicipiais motivos para a escolha do PostgreSQL foram:
+- **Open source:** Garante custo zero de licenciamento, o que é essencial para uma lanchonete em crescimento, junto com a possiblidade de customização, caso necessário;
+- **Escalabilidade:** Suporta grandes volumes de dados e pode ser facilmente escalado vertical ou horizontalmente, permitindo que nossa lanchonete cresça sem problemas;
+- **Failover:** Possui recursos robustos para replicação e recuperação, garantindo alta disponibilidade do totem;
+- **Integridade e confiabilidade:** Com suporte a transações ACID (Atomicidade, Consistência, Isolamento e Durabilidade), o PostgreSQL garante que as operações sejam realizadas de forma segura e confiável. Isso é vital para evitar inconsistências em pedidos e transações financeiras, aumentando a confiança dos clientes no sistema.
+
+### Melhorias no banco de dados
+
+Como melhoria para o nosso banco, foi removida a tabela de clientes/usuários do **PostgreSQL** e movemos para o **AWS Cognito**. 
+Além disso, também adicionamos um banco Redis para guardar o cache da tabela produto.
+
+Para a escolha do Redis, os principais motivos foram:
+- **Performance:** O Redis é um banco de dados em memória, o que garante alta velocidade de leitura e escrita. Isso é essencial para a lanchonete, que precisa de respostas rápidas para atender seus clientes;
+- **Escalabilidade:** Fácil de escalar horizontalmente através de particionamento e replicação, suportando cargas de trabalho crescentes conforme o crescimento da lanchonete;
+- **Simplicidade:** A API é fácil de usar, permitindo implementação rápida e eficiente, diminuindo o custo do desenvolvimento.
+
 
 # Equipe
 Carlos Bridi - RM355971  
