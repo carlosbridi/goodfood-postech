@@ -41,3 +41,10 @@ spec:
             secretKeyRef:
               name: db-secret
               key: DATABASE_PASSWORD
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          value: "6379"
