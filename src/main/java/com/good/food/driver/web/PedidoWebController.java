@@ -130,12 +130,6 @@ public class PedidoWebController {
         return ResponseEntity.created(URI.create("/" + pedidoResponse.getId())).body(pedidoResponse);
     }
     
-    @PostMapping(path = "/hello-world")
-    @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<String> helloWolrd() {
-        return ResponseEntity.ok().body("Hello world!!");
-    }
-
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 201, message = "Created")
