@@ -1,17 +1,16 @@
 package com.good.food.application.usecase.pedido;
 
 import java.util.List;
-
+import org.springframework.stereotype.Component;
 import com.good.food.application.gateway.PedidoDatabaseGateway;
 import com.good.food.domain.Pedido;
+import lombok.RequiredArgsConstructor;
 
+@Component
+@RequiredArgsConstructor
 public class BuscarTodosPedidosAbertosUseCaseImpl implements BuscarTodosPedidosAbertosUseCase {
 
     private final PedidoDatabaseGateway pedidoDatabaseGateway;
-
-    public BuscarTodosPedidosAbertosUseCaseImpl(PedidoDatabaseGateway pedidoDatabaseGateway) {
-        this.pedidoDatabaseGateway = pedidoDatabaseGateway;
-    }
 
     public List<Pedido> execute() {
         return pedidoDatabaseGateway.findAllByStatusNotFinalizadoOrderByStatusAndDate();

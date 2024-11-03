@@ -29,9 +29,10 @@ public class ItemPedidoEntity {
   private UUID id;
   
   private UUID pedido;
-  @ManyToOne
-  @JoinColumn(name = "produto_id")
-  private ProdutoEntity produto;
+  
+  private UUID produto;
+  private String descricao;
+  private String categoria;
 
   @Column(nullable = true)
   private String observacoes;
@@ -49,7 +50,9 @@ public class ItemPedidoEntity {
   public ItemPedidoEntity(ItemPedido itemPedido) {
     id = itemPedido.getId();
     pedido = itemPedido.getPedido();
-    produto = new ProdutoEntity(itemPedido.getProduto());
+    produto = itemPedido.getProduto();
+    descricao = itemPedido.getDescricaoItem();
+    categoria = itemPedido.getCategoria();        
     observacoes = itemPedido.getObservacoes();
     quantidade = itemPedido.getQuantidade();
     preco = itemPedido.getPreco();
@@ -58,7 +61,9 @@ public class ItemPedidoEntity {
   public ItemPedido toDomain() {
     return ItemPedido.builder()
         .id(id)
-        .produto(produto.toDomain())
+        .produto(produto)
+        .descricaoItem(descricao)
+        .categoria(categoria)
         .pedido(pedido)
         .preco(preco)
         .quantidade(quantidade)

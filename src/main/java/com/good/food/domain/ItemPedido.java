@@ -14,7 +14,9 @@ public class ItemPedido {
   private UUID id;
   private UUID pedido;
   private String produtoId;
-  private Produto produto;
+  private UUID produto;
+  private String descricaoItem;
+  private String categoria;
   private String observacoes;
   private Integer quantidade;
   private BigDecimal preco;

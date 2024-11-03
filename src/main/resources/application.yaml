@@ -21,5 +21,13 @@ spring:
   flwyay:
     validateMigrationNaming: false
     locations: classpath:db/migration
+    
+
+food:
+  integration:
+    product:
+      name: goodfood-product 
+      url: localhost:8081
+    
 server:
   port: 8080
