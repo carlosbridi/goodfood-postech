@@ -1,16 +1,16 @@
 package com.good.food.application.usecase.pedido;
 
+import org.springframework.stereotype.Component;
 import com.good.food.application.gateway.PedidoDatabaseGateway;
 import com.good.food.domain.EStatusPagamentoPedido;
 import com.good.food.domain.Pedido;
+import lombok.RequiredArgsConstructor;
 
+@Component
+@RequiredArgsConstructor
 public class WebhookPedidoUseCaseImpl implements WebhookPedidoUseCase {
 
     private final PedidoDatabaseGateway pedidoDatabaseGateway;
-
-    public WebhookPedidoUseCaseImpl(PedidoDatabaseGateway pedidoDatabaseGateway) {
-        this.pedidoDatabaseGateway = pedidoDatabaseGateway;
-    }
 
     @Override
     public Pedido execute(String idPedido) {

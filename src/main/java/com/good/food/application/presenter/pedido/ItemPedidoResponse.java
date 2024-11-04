@@ -20,9 +20,9 @@ public class ItemPedidoResponse {
   
   public ItemPedidoResponse(final ItemPedido itemPedido) {
     this.id = itemPedido.getId().toString();
-    this.preco = itemPedido.getPreco();
-    this.descricao = itemPedido.getProduto().getDescricao();
-    this.categoria = itemPedido.getProduto().getCategoria();
+    this.preco = itemPedido.getPreco();    
+    this.descricao = itemPedido.getDescricaoItem();
+    this.categoria = itemPedido.getCategoria();    
     this.observacoes = itemPedido.getObservacoes();
     this.quantidade = itemPedido.getQuantidade();
   }

@@ -1,29 +1,30 @@
-package com.good.food.application.presenter.produto;
+package com.good.food.driver.integrations.goodfoodproduct.response;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 import com.good.food.domain.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProdutoRequest implements Serializable {
+@NoArgsConstructor
+public class ProdutoResponse {
 
-  private static final long serialVersionUID = 8052492168210242514L;
-  
+  private String id;
   private String descricao;
   private BigDecimal preco;
   private String categoria;
   
   public Produto toDomain() {
     return Produto.builder()
-        .descricao(descricao)
-        .preco(preco)        
-        .categoria(categoria)
-      .build();
+          .id(UUID.fromString(id))
+          .descricao(descricao)
+          .categoria(categoria)
+          .preco(preco)        
+        .build();
+    
   }
   
 }
